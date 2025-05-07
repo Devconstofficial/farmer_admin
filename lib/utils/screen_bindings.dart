@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import '../screens/chat_screen/controller/chat_controller.dart';
+import '../screens/collection_points_screen/controller/collection_controller.dart';
+import '../screens/customer_service/controller/support_controller.dart';
 import '../screens/dashboard_screen/controller/dashboard_controller.dart';
 import '../screens/employee_screen/controller/employee_controller.dart';
 import '../screens/report_screen/controller/report_controller.dart';
@@ -15,5 +17,7 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => ReportController());
     Get.lazyPut(() => SalesController());
     Get.lazyPut(() => ChatController());
+    Get.lazyPut(() => SupportController());
+    Get.lazyPut(() => CollectionController());
   }
 }

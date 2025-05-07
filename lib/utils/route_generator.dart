@@ -1,6 +1,8 @@
+import 'package:farmer_admin/screens/customer_service/support_screen.dart';
 import 'package:farmer_admin/utils/screen_bindings.dart';
 import 'package:get/get.dart';
 import '../screens/chat_screen/chat_screen.dart';
+import '../screens/collection_points_screen/collection_screen.dart';
 import '../screens/dashboard_screen/dashboard_screen.dart';
 import '../screens/employee_screen/employee_screen.dart';
 import '../screens/report_screen/report_screen.dart';
@@ -18,6 +20,8 @@ class RouteGenerator {
       GetPage(name: kReportScreenRoute, page: () => ReportScreen(), binding: ScreenBindings(),),
       GetPage(name: kSalesScreenRoute, page: () => SalesScreen(), binding: ScreenBindings(),),
       GetPage(name: kChatScreenRoute, page: () => ChatScreen(), binding: ScreenBindings(),),
+      GetPage(name: kSupportScreenRoute, page: () => SupportScreen(), binding: ScreenBindings(),),
+      GetPage(name: kCollectionScreenRoute, page: () => CollectionScreen(), binding: ScreenBindings(),),
       ];
   }
 }

@@ -5,7 +5,7 @@ class UserController extends GetxController {
   var selectedUserType = ''.obs;
   RxDouble rating = 5.0.obs;
   var selectedTab = 'Revenue Generated'.obs;
-  List<String> options = ["Driver", "Supplier"];
+  List<String> options = ["Customer", "Supplier"];
   RxString selectedOption = "".obs;
 
   void selectOption(String option) {
@@ -17,16 +17,16 @@ class UserController extends GetxController {
   }
 
   final List<Map<String, dynamic>> allUsers = [
-    {"id": "00001", 'name' : "Christine Brooks", "type": "Driver", "email": "surfmaster92@gmail.com", "status": "Pending", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
-    {"id": "00002", 'name' : "Christine Brooks", "type": "Supplier", "email": "surfmaster92@gmail.com", "status": "Pending", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
-    {"id": "00003", 'name' : "Rosie Pearson", "type": "Supplier", "email": "surfmaster92@gmail.com", "status": "Pending", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
-    {"id": "00004", 'name' : "Christine Brooks", "type": "Driver", "email": "surfmaster92@gmail.com", "status": "Confirmed", "statusBackColor": kPrimaryColor, "StatusColor": kPrimaryColor.withOpacity(0.2)},
-    {"id": "00005", 'name' : "Christine Brooks", "type": "Driver", "email": "surfmaster92@gmail.com", "status": "Pending", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
-    {"id": "00006", 'name' : "Rosie Pearson", "type": "Supplier", "email": "surfmaster92@gmail.com", "status": "Pending", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
-    {"id": "00007", 'name' : "Christine Brooks", "type": "Driver", "email": "surfmaster92@gmail.com", "status": "Confirmed", "statusBackColor": kPrimaryColor, "StatusColor": kPrimaryColor.withOpacity(0.2)},
-    {"id": "00008", 'name' : "Christine Brooks", "type": "Supplier", "email": "surfmaster92@gmail.com", "status": "Pending", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
-    {"id": "00009", 'name' : "Christine Brooks", "type": "Driver", "email": "surfmaster92@gmail.com", "status": "Pending", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
-    {"id": "00010", 'name' : "Rosie Pearson", "type": "Supplier", "email": "surfmaster92@gmail.com", "status": "Pending", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
+    {"id": "00001", 'name' : "Christine Brooks", "type": "Customer", "orders": "80", "status": "Banned", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
+    {"id": "00002", 'name' : "Christine Brooks", "type": "Supplier", "orders": "50 (Supplied)", "status": "Banned", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
+    {"id": "00003", 'name' : "Rosie Pearson", "type": "Supplier", "orders": "50 (Supplied)", "status": "Banned", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
+    {"id": "00004", 'name' : "Christine Brooks", "type": "Customer", "orders": "80", "status": "Active", "statusBackColor": kPrimaryColor, "StatusColor": kPrimaryColor.withOpacity(0.2)},
+    {"id": "00005", 'name' : "Christine Brooks", "type": "Customer", "orders": "80", "status": "Banned", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
+    {"id": "00006", 'name' : "Rosie Pearson", "type": "Supplier", "orders": "80", "status": "Banned", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
+    {"id": "00007", 'name' : "Christine Brooks", "type": "Customer", "orders": "50 (Supplied)", "status": "Active", "statusBackColor": kPrimaryColor, "StatusColor": kPrimaryColor.withOpacity(0.2)},
+    {"id": "00008", 'name' : "Christine Brooks", "type": "Supplier", "orders": "80", "status": "Banned", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
+    {"id": "00009", 'name' : "Christine Brooks", "type": "Customer", "orders": "50 (Supplied)", "status": "Banned", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
+    {"id": "00010", 'name' : "Rosie Pearson", "type": "Supplier", "orders": "50 (Supplied)", "status": "Banned", "statusBackColor": kBlackTextColor, "StatusColor": kGreyShade1Color.withOpacity(0.2)},
   ];
 
   final int itemsPerPage = 4;

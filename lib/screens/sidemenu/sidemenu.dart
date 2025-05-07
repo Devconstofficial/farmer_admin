@@ -361,6 +361,7 @@ class _SideMenuState extends State<SideMenu> {
                           child: GestureDetector(
                             onTap: () {
                               menuController.onItemTapped(5);
+                              Get.toNamed(kCollectionScreenRoute);
                             },
                             child: SizedBox(
                               width: width,
@@ -416,6 +417,7 @@ class _SideMenuState extends State<SideMenu> {
                           child: GestureDetector(
                             onTap: () {
                               menuController.onItemTapped(6);
+                              Get.toNamed(kSupportScreenRoute);
                             },
                             child: SizedBox(
                               width: width,

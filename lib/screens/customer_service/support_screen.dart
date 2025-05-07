@@ -12,10 +12,10 @@ import '../../custom_widgets/dashboard_container.dart';
 import '../../custom_widgets/detail_row.dart';
 import '../../custom_widgets/show_detail_dialog.dart';
 import '../sidemenu/sidemenu.dart';
-import 'controller/user_controller.dart';
+import 'controller/support_controller.dart';
 
-class UserScreen extends GetView<UserController> {
-  const UserScreen({super.key});
+class SupportScreen extends GetView<SupportController> {
+  const SupportScreen({super.key});
 
   Widget detailsDialogue(BuildContext context) {
     return Dialog(
@@ -329,7 +329,6 @@ class UserScreen extends GetView<UserController> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -360,7 +359,7 @@ class UserScreen extends GetView<UserController> {
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Users",
+                              "Customer Service",
                               style: AppStyles.blackTextStyle().copyWith(
                                   fontSize: 20.sp, fontWeight: FontWeight.w600),
                             ),
@@ -423,32 +422,58 @@ class UserScreen extends GetView<UserController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Wrap(
-                            runSpacing: 28,
-                            spacing: 28,
+                          SizedBox(
+                            height: 32.h,
+                          ),
+                          Row(
                             children: [
-                              GestureDetector(
-                                  onTap: () {
+                              Obx(() {
+                                return Text(
+                                  controller.selectedEmployee.value,
+                                  style: AppStyles.blackTextStyle().copyWith(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                );
+                              }),
+                              PopupMenuButton<String>(
+                                color: kWhiteColor,
+                                borderRadius: BorderRadius.circular(12),
+                                padding: EdgeInsets.all(0),
+                                position: PopupMenuPosition.under,
+                                onSelected: (value) {
 
-                                  },
-                                  child: DashboardContainer(
-                                    width: 202,
-                                    height: 112,
-                                    color: kPrimaryColor,
-                                    title: "Total Customer",
-                                    totalNumber: '1200',
-                                    icon: kDoubleUserIcon,
-                                  )),
-                              GestureDetector(
-                                onTap: () {
                                 },
-                                child: DashboardContainer(
-                                  width: 202,
-                                  height: 112,
-                                  color: kDarkPrimaryColor,
-                                  title: "Total Suppliers",
-                                  totalNumber: '1200',
-                                  icon: kCashIcon,
+                                itemBuilder: (BuildContext context) {
+                                  return controller.employee.map((option) {
+                                    return PopupMenuItem<String>(
+                                      value: option,
+                                      child: Obx(() => Row(
+                                        children: [
+                                          Checkbox(
+                                            value: controller.selectedEmployee.value == option,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            side: BorderSide(color: kBorderColor,width: 1),
+                                            onChanged: (bool? newValue) {
+                                              controller.selectEmployeeOption(option);
+                                              Navigator.pop(context);
+                                            },
+                                            activeColor: kGreyShade1Color,
+                                          ),
+                                          SizedBox(width: 8),
+                                          Text(option),
+                                        ],
+                                      )),
+                                    );
+                                  }).toList();
+                                },
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_outlined,
+                                  size: 24,
+                                  color: kGreyShade1Color,
                                 ),
                               ),
                             ],
@@ -458,7 +483,7 @@ class UserScreen extends GetView<UserController> {
                           ),
                           Container(
                             height: 70,
-                            width: 314,
+                            width: 603,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: kWhiteColor,
@@ -489,7 +514,7 @@ class UserScreen extends GetView<UserController> {
                                 ),
                                 Obx(() {
                                   return Text(
-                                    controller.selectedOption.value.isEmpty? "User Type" : controller.selectedOption.value,
+                                    controller.selectedOption.value.isEmpty? "Ratings" : controller.selectedOption.value,
                                     style: AppStyles.blackTextStyle().copyWith(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w600,
@@ -519,6 +544,112 @@ class UserScreen extends GetView<UserController> {
                                               side: BorderSide(color: kBorderColor,width: 1),
                                               onChanged: (bool? newValue) {
                                                 controller.selectOption(option);
+                                                Navigator.pop(context);
+                                              },
+                                              activeColor: kGreyShade1Color,
+                                            ),
+                                            SizedBox(width: 8),
+                                            Text(option),
+                                          ],
+                                        )),
+                                      );
+                                    }).toList();
+                                  },
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down_outlined,
+                                    size: 24,
+                                    color: kGreyShade1Color,
+                                  ),
+                                ),
+                                Container(
+                                  width: 0.3,
+                                  color: kGreyShade5Color,
+                                ),
+                                Obx(() {
+                                  return Text(
+                                    controller.selectedOption1.value.isEmpty? "Work Hours" : controller.selectedOption1.value,
+                                    style: AppStyles.blackTextStyle().copyWith(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  );
+                                }),
+                                PopupMenuButton<String>(
+                                  color: kWhiteColor,
+                                  borderRadius: BorderRadius.circular(12),
+                                  padding: EdgeInsets.all(0),
+                                  position: PopupMenuPosition.under,
+                                  onSelected: (value) {
+
+                                  },
+                                  itemBuilder: (BuildContext context) {
+                                    return controller.options1.map((option) {
+                                      return PopupMenuItem<String>(
+                                        value: option,
+                                        child: Obx(() => Row(
+                                          children: [
+                                            Checkbox(
+                                              value: controller.selectedOption1.value == option,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(4),
+                                              ),
+                                              side: BorderSide(color: kBorderColor,width: 1),
+                                              onChanged: (bool? newValue) {
+                                                controller.selectOption1(option);
+                                                Navigator.pop(context);
+                                              },
+                                              activeColor: kGreyShade1Color,
+                                            ),
+                                            SizedBox(width: 8),
+                                            Text(option),
+                                          ],
+                                        )),
+                                      );
+                                    }).toList();
+                                  },
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down_outlined,
+                                    size: 24,
+                                    color: kGreyShade1Color,
+                                  ),
+                                ),
+                                Container(
+                                  width: 0.3,
+                                  color: kGreyShade5Color,
+                                ),
+                                Obx(() {
+                                  return Text(
+                                    controller.selectedOption2.value.isEmpty? "Decision Taken" : controller.selectedOption2.value,
+                                    style: AppStyles.blackTextStyle().copyWith(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  );
+                                }),
+                                PopupMenuButton<String>(
+                                  color: kWhiteColor,
+                                  borderRadius: BorderRadius.circular(12),
+                                  padding: EdgeInsets.all(0),
+                                  position: PopupMenuPosition.under,
+                                  onSelected: (value) {
+
+                                  },
+                                  itemBuilder: (BuildContext context) {
+                                    return controller.options2.map((option) {
+                                      return PopupMenuItem<String>(
+                                        value: option,
+                                        child: Obx(() => Row(
+                                          children: [
+                                            Checkbox(
+                                              value: controller.selectedOption2.value == option,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(4),
+                                              ),
+                                              side: BorderSide(color: kBorderColor,width: 1),
+                                              onChanged: (bool? newValue) {
+                                                controller.selectOption2(option);
                                                 Navigator.pop(context);
                                               },
                                               activeColor: kGreyShade1Color,
@@ -573,7 +704,7 @@ class UserScreen extends GetView<UserController> {
                                       DataColumn(
                                         label: Flexible(
                                           child: Text(
-                                            "User ID",
+                                            "Employee ID",
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
                                             style:
@@ -603,7 +734,7 @@ class UserScreen extends GetView<UserController> {
                                       DataColumn(
                                         label: Flexible(
                                           child: Text(
-                                            "User Type",
+                                            "Response Time",
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
                                             style:
@@ -618,7 +749,7 @@ class UserScreen extends GetView<UserController> {
                                       DataColumn(
                                         label: Flexible(
                                           child: Text(
-                                            "Total Orders",
+                                            "Chats Handled",
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
                                             style:
@@ -629,13 +760,43 @@ class UserScreen extends GetView<UserController> {
                                             ),
                                           ),
                                         ),
-                                        headingRowAlignment: MainAxisAlignment.center,
+                                      ),
+                                      DataColumn(
+                                        label: Flexible(
+                                          child: Text(
+                                            "Decisions Taken",
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style:
+                                            AppStyles.whiteTextStyle()
+                                                .copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                       DataColumn(
                                         headingRowAlignment: MainAxisAlignment.center,
                                         label: Flexible(
                                           child: Text(
-                                            "Status",
+                                            "Work Hours",
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style:
+                                            AppStyles.whiteTextStyle()
+                                                .copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      DataColumn(
+                                        headingRowAlignment: MainAxisAlignment.center,
+                                        label: Flexible(
+                                          child: Text(
+                                            "Avg. Rating",
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
                                             style:
@@ -669,11 +830,11 @@ class UserScreen extends GetView<UserController> {
                                         .map((user) => _buildDataRow(
                                         user['id']!,
                                         user['name']!,
-                                        user['type']!,
-                                        user['orders']!,
-                                        user['status']!,
-                                        user['statusBackColor'],
-                                        user['StatusColor'],
+                                        user['time']!,
+                                        user['chats']!,
+                                        user['decision']!,
+                                        user['workHours'],
+                                        user['avgRating'],
                                         context))
                                         .toList(),
                                     dataRowMaxHeight: 65,
@@ -836,8 +997,7 @@ class UserScreen extends GetView<UserController> {
     );
   }
 
-  DataRow _buildDataRow(String id, String name, String type, String email, String status,
-      Color statusColor, Color statusBackColor, context) {
+  DataRow _buildDataRow(String id, String name, String responseTime, String chatsHandeled, String decision, String workHour, String averageRating, context) {
 
     return DataRow(
       cells: [
@@ -854,37 +1014,42 @@ class UserScreen extends GetView<UserController> {
               .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
         )),
         DataCell(Text(
-          type,
+          responseTime,
           textAlign: TextAlign.center,
           style: AppStyles.blackTextStyle()
               .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
         )),
-        DataCell(Center(
-          child: Text(
-            email,
+        DataCell(Text(
+          chatsHandeled,
+          textAlign: TextAlign.center,
+          style: AppStyles.blackTextStyle()
+              .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
+        )),
+        DataCell(
+          Text(
+            decision,
             textAlign: TextAlign.center,
             style: AppStyles.blackTextStyle()
                 .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
           ),
-        )),
+        ),
         DataCell(
           Center(
-            child: Container(
-              width: 93.w,
-              height: 27,
-              decoration: BoxDecoration(
-                color: statusBackColor,
-                borderRadius: BorderRadius.circular(5.r),
-              ),
-              child: Center(
-                child: Text(
-                  status,
-                  style: AppStyles.blackTextStyle().copyWith(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: statusColor),
-                ),
-              ),
+            child: Text(
+              workHour,
+              textAlign: TextAlign.center,
+              style: AppStyles.blackTextStyle()
+                  .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
+            ),
+          ),
+        ),
+        DataCell(
+          Center(
+            child: Text(
+              "$averageRating ⭐",
+              textAlign: TextAlign.center,
+              style: AppStyles.blackTextStyle()
+                  .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
             ),
           ),
         ),

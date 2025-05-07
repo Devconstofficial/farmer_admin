@@ -374,6 +374,21 @@ class DashboardScreen extends GetView<DashboardController> {
                                 ),
                               ),
                               GestureDetector(
+                                onTap: () {
+                                  // Get.toNamed(kAnalyticsScreenRoute);
+                                  // menuController.onItemTapped(6);
+                                },
+                                child: DashboardContainer(
+                                  width: 202,
+                                  height: 112,
+                                  color: kPrimaryColor2,
+                                  title: "Support Chats",
+                                  totalNumber: '\$20',
+                                  icon: kSupportIcon,
+                                  showIcon: true,
+                                ),
+                              ),
+                              GestureDetector(
                                   onTap: () {
                                     // Get.toNamed(kAnalyticsScreenRoute);
                                     // menuController.onItemTapped(6);
@@ -393,297 +408,70 @@ class DashboardScreen extends GetView<DashboardController> {
                           SizedBox(
                             height: 32.h,
                           ),
-                          Text(
-                            'Incoming Request',
-                            style: AppStyles.blackTextStyle()
-                                .copyWith(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,),
+                          Row(
+                            children: [
+                              Text(
+                                'Revenue',
+                                style: AppStyles.blackTextStyle()
+                                    .copyWith(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,),
+                              ),
+                              Spacer(),
+                              Obx(() {
+                                return Text(
+                                  controller.selectedOption.value.isEmpty? "Last 7 Days" : "Last ${controller.selectedOption.value}",
+                                  style: AppStyles.blackTextStyle().copyWith(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                );
+                              }),
+                              PopupMenuButton<String>(
+                                color: kWhiteColor,
+                                borderRadius: BorderRadius.circular(12),
+                                padding: EdgeInsets.all(0),
+                                position: PopupMenuPosition.under,
+                                onSelected: (value) {
+
+                                },
+                                itemBuilder: (BuildContext context) {
+                                  return controller.options.map((option) {
+                                    return PopupMenuItem<String>(
+                                      value: option,
+                                      child: Obx(() => Row(
+                                        children: [
+                                          Checkbox(
+                                            value: controller.selectedOption.value == option,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            side: BorderSide(color: kBorderColor,width: 1),
+                                            onChanged: (bool? newValue) {
+                                              controller.selectOption(option);
+                                              Navigator.pop(context);
+                                            },
+                                            activeColor: kGreyShade1Color,
+                                          ),
+                                          SizedBox(width: 8),
+                                          Text(option),
+                                        ],
+                                      )),
+                                    );
+                                  }).toList();
+                                },
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_outlined,
+                                  size: 24,
+                                  color: kGreyShade1Color,
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height: 9.h,
                           ),
-                          Obx(() => Container(
-                            width: width,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(14.r),
-                                topRight: Radius.circular(14.r),
-                              ),
-                              border: Border.all(
-                                  color: kGreyColor, width: 0.3),
-                            ),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  height: 49,
-                                  decoration: BoxDecoration(
-                                    color: kPrimaryColor,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(14),
-                                      topRight: Radius.circular(14),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: width,
-                                  child: DataTable(
-                                    columnSpacing: 0,
-                                    headingRowHeight: 49,
-                                    columns: [
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Request ID",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Name",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "User Type",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Email",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
-                                            ),
-                                          ),
-                                        ),
-                                        headingRowAlignment: MainAxisAlignment.center,
-                                      ),
-                                      DataColumn(
-                                        headingRowAlignment: MainAxisAlignment.center,
-                                        label: Flexible(
-                                          child: Text(
-                                            "Status",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      DataColumn(
-                                        headingRowAlignment:
-                                        MainAxisAlignment.center,
-                                        label: Flexible(
-                                          child: Text(
-                                            "Actions",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                    rows: controller.currentPageUsers
-                                        .map((user) => _buildDataRow(
-                                        user['id']!,
-                                        user['name']!,
-                                        user['type']!,
-                                        user['email']!,
-                                        user['status']!,
-                                        user['statusBackColor'],
-                                        user['StatusColor'],
-                                        context))
-                                        .toList(),
-                                    dataRowMaxHeight: 65,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),),
-                          SizedBox(
-                            height: 51.h,
-                          ),
-                          Obx(() => Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: controller.isBackButtonDisabled
-                                    ? null
-                                    : controller.goToPreviousPage,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 12),
-                                  decoration: BoxDecoration(
-                                    color: controller.isBackButtonDisabled
-                                        ? kCreamColor2
-                                        : kPrimaryColor,
-                                    border: Border.all(
-                                      color: controller.isBackButtonDisabled
-                                          ? kCreamColor2
-                                          : kPrimaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.arrow_back_ios_new_outlined,
-                                          size: 12,
-                                          color:
-                                          controller.isBackButtonDisabled
-                                              ? kBlackColor
-                                              : kWhiteColor),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        'Back',
-                                        style: AppStyles.blackTextStyle()
-                                            .copyWith(
-                                          fontSize: 12,
-                                          color:
-                                          controller.isBackButtonDisabled
-                                              ? kBlackColor
-                                              : kWhiteColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              ...List.generate(
-                                controller.totalPages,
-                                    (index) {
-                                  bool isSelected = index + 1 ==
-                                      controller.currentPage.value;
-                                  return GestureDetector(
-                                    onTap: () =>
-                                        controller.changePage(index + 1),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 6),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8, horizontal: 12),
-                                        decoration: BoxDecoration(
-                                          color: isSelected
-                                              ? kPrimaryColor
-                                              : kCreamColor2,
-                                          borderRadius:
-                                          BorderRadius.circular(4),
-                                          border: Border.all(
-                                            color: isSelected
-                                                ? kPrimaryColor
-                                                : kCreamColor,
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            (index + 1).toString(),
-                                            style: AppStyles.blackTextStyle()
-                                                .copyWith(
-                                              fontSize: 12,
-                                              color: isSelected
-                                                  ? kWhiteColor
-                                                  : kBlackColor,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                              // const SizedBox(width: 12,),
-                              GestureDetector(
-                                onTap: controller.isNextButtonDisabled
-                                    ? null
-                                    : controller.goToNextPage,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 12),
-                                  decoration: BoxDecoration(
-                                    color: controller.isNextButtonDisabled
-                                        ? kCreamColor2
-                                        : kPrimaryColor,
-                                    border: Border.all(
-                                        color: controller.isNextButtonDisabled ? kCreamColor2 : kPrimaryColor
-                                    ),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Next',
-                                        style: AppStyles.blackTextStyle()
-                                            .copyWith(
-                                          fontSize: 12,
-                                          color:
-                                          controller.isNextButtonDisabled
-                                              ? kBlackColor
-                                              : kWhiteColor,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                      Icon(Icons.arrow_forward_ios_outlined,
-                                          size: 12,
-                                          color:
-                                          controller.isNextButtonDisabled
-                                              ? kBlackColor
-                                              : kWhiteColor),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),)
                         ],
                       ),
                     )
@@ -694,116 +482,6 @@ class DashboardScreen extends GetView<DashboardController> {
           ],
         ),
       ),
-    );
-  }
-
-  DataRow _buildDataRow(String id, String name, String type, String email, String status,
-      Color statusColor, Color statusBackColor, context) {
-
-    return DataRow(
-      cells: [
-        DataCell(Text(
-          id,
-          textAlign: TextAlign.center,
-          style: AppStyles.blackTextStyle()
-              .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-        )),
-        DataCell(Text(
-          name,
-          textAlign: TextAlign.center,
-          style: AppStyles.blackTextStyle()
-              .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-        )),
-        DataCell(Text(
-          type,
-          textAlign: TextAlign.center,
-          style: AppStyles.blackTextStyle()
-              .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-        )),
-        DataCell(Center(
-          child: Text(
-            email,
-            textAlign: TextAlign.center,
-            style: AppStyles.blackTextStyle()
-                .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-          ),
-        )),
-        DataCell(
-          Center(
-            child: Container(
-              width: 93.w,
-              height: 27,
-              decoration: BoxDecoration(
-                color: statusBackColor,
-                borderRadius: BorderRadius.circular(5.r),
-              ),
-              child: Center(
-                child: Text(
-                  status,
-                  style: AppStyles.blackTextStyle().copyWith(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: statusColor),
-                ),
-              ),
-            ),
-          ),
-        ),
-        DataCell(
-          Center(
-            child: Container(
-              height: 32,
-              width: 96.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: kCreamColor,
-                  border: Border.all(color: kGreyShade5Color, width: 0.4)),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        onTap: () {
-
-                        },
-                        child: SvgPicture.asset(
-                          kDeleteIcon,
-                          height: 19.h,
-                          width: 19.w,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 0.4,
-                      color: kGreyShade5Color,
-                    ),
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return detailsDialogue(context);
-                            },
-                          );
-                        },
-                        child: SvgPicture.asset(
-                          kEyeIcon,
-                          height: 19.h,
-                          width: 19.w,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 
