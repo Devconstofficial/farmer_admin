@@ -1,3 +1,4 @@
+import 'package:farmer_admin/screens/distribution_employe/controller/distribution_controller.dart';
 import 'package:get/get.dart';
 import '../screens/chat_screen/controller/chat_controller.dart';
 import '../screens/collection_points_screen/controller/collection_controller.dart';
@@ -19,5 +20,6 @@ class ScreenBindings extends Bindings {
     Get.lazyPut(() => ChatController());
     Get.lazyPut(() => SupportController());
     Get.lazyPut(() => CollectionController());
+    Get.lazyPut(() => DistributionController());
   }
 }
