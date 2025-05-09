@@ -1,3 +1,5 @@
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../utils/app_colors.dart';
 
@@ -6,6 +8,7 @@ class DashboardController extends GetxController {
   var selectedTab = 'User Details'.obs;
   List<String> options = ["7 Days", "30 Days", "1 Year"];
   RxString selectedOption = "".obs;
+  RxList<BarChartGroupData> barChartData = <BarChartGroupData>[].obs;
 
   void selectOption(String option) {
     selectedOption.value = option;
@@ -13,6 +16,42 @@ class DashboardController extends GetxController {
 
   void resetSelection() {
     selectedOption.value = "";
+  }
+
+  void generateBarChartData() {
+    List<double> rawData = [60, 40, 20, 120, 160, 100, 60];
+    double maxBarHeight = 160.0;
+
+    barChartData.value = rawData.asMap().entries.map((entry) {
+      int index = entry.key;
+      double value = entry.value;
+
+      return BarChartGroupData(
+        x: index,
+        barRods: [
+          BarChartRodData(
+            toY: maxBarHeight,
+            color: kBarColor,
+            // borderSide: const BorderSide(color: kTableBorderColor),
+            width: 10,
+            borderRadius: BorderRadius.circular(8),
+            rodStackItems: [
+              BarChartRodStackItem(
+                0,
+                value,
+                kPrimaryColor,
+              ),
+            ],
+          ),
+        ],
+      );
+    }).toList();
+  }
+
+  @override
+  onInit(){
+    super.onInit();
+    generateBarChartData();
   }
 
   final List<Map<String, dynamic>> allUsers = [

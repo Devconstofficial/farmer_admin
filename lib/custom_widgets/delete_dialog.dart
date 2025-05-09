@@ -28,7 +28,7 @@ class DeleteDialog extends StatelessWidget {
                 vertical: 8,
               ),
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: kPrimaryColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(7),
                   topRight: Radius.circular(7),
@@ -38,7 +38,7 @@ class DeleteDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Delete Account?',
+                    'Delete Entry?',
                     style: AppStyles.whiteTextStyle().copyWith(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
@@ -65,7 +65,7 @@ class DeleteDialog extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(height: 1, color: kGreyShade6Color),
+            Divider(height: 1, color: kGreyColor),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 20,
@@ -103,7 +103,7 @@ class DeleteDialog extends StatelessWidget {
                     },
                     style: TextButton.styleFrom(
                       foregroundColor: kWhiteColor,
-                      backgroundColor: kGreyShade1Color,
+                      backgroundColor: Colors.red,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7),
                       ),

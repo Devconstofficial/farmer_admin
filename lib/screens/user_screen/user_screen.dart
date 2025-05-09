@@ -1,3 +1,4 @@
+import 'package:farmer_admin/custom_widgets/delete_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -441,6 +442,7 @@ class UserScreen extends GetView<UserController> {
                                   )),
                               GestureDetector(
                                 onTap: () {
+
                                 },
                                 child: DashboardContainer(
                                   width: 202,
@@ -509,23 +511,29 @@ class UserScreen extends GetView<UserController> {
                                     return controller.options.map((option) {
                                       return PopupMenuItem<String>(
                                         value: option,
-                                        child: Obx(() => Row(
-                                          children: [
-                                            Checkbox(
-                                              value: controller.selectedOption.value == option,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(4),
+                                        child: Obx(() => InkWell(
+                                          onTap: () {
+                                            controller.selectOption(option);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Checkbox(
+                                                value: controller.selectedOption.value == option,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(4),
+                                                ),
+                                                side: BorderSide(color: kBorderColor,width: 1),
+                                                onChanged: (bool? newValue) {
+                                                  controller.selectOption(option);
+                                                  Navigator.pop(context);
+                                                },
+                                                activeColor: kGreyShade1Color,
                                               ),
-                                              side: BorderSide(color: kBorderColor,width: 1),
-                                              onChanged: (bool? newValue) {
-                                                controller.selectOption(option);
-                                                Navigator.pop(context);
-                                              },
-                                              activeColor: kGreyShade1Color,
-                                            ),
-                                            SizedBox(width: 8),
-                                            Text(option),
-                                          ],
+                                              SizedBox(width: 8),
+                                              Text(option),
+                                            ],
+                                          ),
                                         )),
                                       );
                                     }).toList();
@@ -838,7 +846,6 @@ class UserScreen extends GetView<UserController> {
 
   DataRow _buildDataRow(String id, String name, String type, String email, String status,
       Color statusColor, Color statusBackColor, context) {
-
     return DataRow(
       cells: [
         DataCell(Text(
@@ -905,7 +912,12 @@ class UserScreen extends GetView<UserController> {
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return DeleteDialog();
+                            },
+                          );
                         },
                         child: SvgPicture.asset(
                           kDeleteIcon,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import '../../custom_widgets/chat_detail_view.dart';
 import '../../custom_widgets/chat_list_view.dart';
 import '../../utils/app_colors.dart';

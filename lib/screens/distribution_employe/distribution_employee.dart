@@ -10,6 +10,7 @@ import '../../../utils/app_styles.dart';
 import '../../custom_widgets/approve_dialoge.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/dashboard_container.dart';
+import '../../custom_widgets/delete_dialog.dart';
 import '../../custom_widgets/detail_row.dart';
 import '../../custom_widgets/show_detail_dialog.dart';
 import '../sidemenu/sidemenu.dart';
@@ -446,23 +447,29 @@ class DistributionScreen extends GetView<DistributionController> {
                                   return controller.employee.map((option) {
                                     return PopupMenuItem<String>(
                                       value: option,
-                                      child: Obx(() => Row(
-                                        children: [
-                                          Checkbox(
-                                            value: controller.selectedEmployee.value == option,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(4),
+                                      child: Obx(() => InkWell(
+                                        onTap: () {
+                                          controller.selectEmployeeOption(option);
+                                          Navigator.pop(context);
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Checkbox(
+                                              value: controller.selectedEmployee.value == option,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(4),
+                                              ),
+                                              side: BorderSide(color: kBorderColor,width: 1),
+                                              onChanged: (bool? newValue) {
+                                                controller.selectEmployeeOption(option);
+                                                Navigator.pop(context);
+                                              },
+                                              activeColor: kGreyShade1Color,
                                             ),
-                                            side: BorderSide(color: kBorderColor,width: 1),
-                                            onChanged: (bool? newValue) {
-                                              controller.selectEmployeeOption(option);
-                                              Navigator.pop(context);
-                                            },
-                                            activeColor: kGreyShade1Color,
-                                          ),
-                                          SizedBox(width: 8),
-                                          Text(option),
-                                        ],
+                                            SizedBox(width: 8),
+                                            Text(option),
+                                          ],
+                                        ),
                                       )),
                                     );
                                   }).toList();
@@ -565,23 +572,29 @@ class DistributionScreen extends GetView<DistributionController> {
                                     return controller.options.map((option) {
                                       return PopupMenuItem<String>(
                                         value: option,
-                                        child: Obx(() => Row(
-                                          children: [
-                                            Checkbox(
-                                              value: controller.selectedOption.value == option,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(4),
+                                        child: Obx(() => InkWell(
+                                          onTap: () {
+                                            controller.selectOption(option);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Checkbox(
+                                                value: controller.selectedOption.value == option,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(4),
+                                                ),
+                                                side: BorderSide(color: kBorderColor,width: 1),
+                                                onChanged: (bool? newValue) {
+                                                  controller.selectOption(option);
+                                                  Navigator.pop(context);
+                                                },
+                                                activeColor: kGreyShade1Color,
                                               ),
-                                              side: BorderSide(color: kBorderColor,width: 1),
-                                              onChanged: (bool? newValue) {
-                                                controller.selectOption(option);
-                                                Navigator.pop(context);
-                                              },
-                                              activeColor: kGreyShade1Color,
-                                            ),
-                                            SizedBox(width: 8),
-                                            Text(option),
-                                          ],
+                                              SizedBox(width: 8),
+                                              Text(option),
+                                            ],
+                                          ),
                                         )),
                                       );
                                     }).toList();
@@ -873,7 +886,6 @@ class DistributionScreen extends GetView<DistributionController> {
   }
 
   DataRow _buildDataRow(String name,String points, String orders, String approvals, context) {
-
     return DataRow(
       cells: [
         DataCell(Text(
@@ -917,7 +929,12 @@ class DistributionScreen extends GetView<DistributionController> {
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return DeleteDialog();
+                            },
+                          );
                         },
                         child: SvgPicture.asset(
                           kDeleteIcon,

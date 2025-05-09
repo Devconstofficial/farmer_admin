@@ -9,6 +9,7 @@ import '../../../utils/app_styles.dart';
 import '../../custom_widgets/approve_dialoge.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/dashboard_container.dart';
+import '../../custom_widgets/delete_dialog.dart';
 import '../../custom_widgets/detail_row.dart';
 import '../../custom_widgets/revenue_chat.dart';
 import '../sidemenu/sidemenu.dart';
@@ -117,7 +118,7 @@ class SalesScreen extends GetView<SalesController> {
 
                                   },
                                   child: DashboardContainer(
-                                    width: 202,
+                                    width: 216,
                                     height: 112,
                                     color: kPrimaryColor,
                                     title: "Total Sales",
@@ -129,9 +130,10 @@ class SalesScreen extends GetView<SalesController> {
                               SizedBox(width: 28,),
                               GestureDetector(
                                 onTap: () {
+
                                 },
                                 child: DashboardContainer(
-                                  width: 212,
+                                  width: 216,
                                   height: 112,
                                   color: kDarkPrimaryColor,
                                   title: "Total Orders",
@@ -148,7 +150,7 @@ class SalesScreen extends GetView<SalesController> {
                           ),
                           Container(
                             height: 70,
-                            width: 330,
+                            width: 380,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: kWhiteColor,
@@ -199,23 +201,29 @@ class SalesScreen extends GetView<SalesController> {
                                     return controller.options.map((option) {
                                       return PopupMenuItem<String>(
                                         value: option,
-                                        child: Obx(() => Row(
-                                          children: [
-                                            Checkbox(
-                                              value: controller.selectedOption.value == option,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(4),
+                                        child: Obx(() => InkWell(
+                                          onTap: () {
+                                            controller.selectOption(option);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Checkbox(
+                                                value: controller.selectedOption.value == option,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(4),
+                                                ),
+                                                side: BorderSide(color: kBorderColor,width: 1),
+                                                onChanged: (bool? newValue) {
+                                                  controller.selectOption(option);
+                                                  Navigator.pop(context);
+                                                },
+                                                activeColor: kGreyShade1Color,
                                               ),
-                                              side: BorderSide(color: kBorderColor,width: 1),
-                                              onChanged: (bool? newValue) {
-                                                controller.selectOption(option);
-                                                Navigator.pop(context);
-                                              },
-                                              activeColor: kGreyShade1Color,
-                                            ),
-                                            SizedBox(width: 8),
-                                            Text(option),
-                                          ],
+                                              SizedBox(width: 8),
+                                              Text(option),
+                                            ],
+                                          ),
                                         )),
                                       );
                                     }).toList();
@@ -325,11 +333,9 @@ class SalesScreen extends GetView<SalesController> {
                               ),
                             ],
                           ),
-
                           SizedBox(
                             height: 16,
                           ),
-
                           Obx(() => Container(
                             width: width,
                             decoration: BoxDecoration(
@@ -591,7 +597,6 @@ class SalesScreen extends GetView<SalesController> {
                               ),
                             ],
                           ),)
-
                         ],
                       ),
                     )
@@ -651,7 +656,12 @@ class SalesScreen extends GetView<SalesController> {
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return DeleteDialog();
+                            },
+                          );
                         },
                         child: SvgPicture.asset(
                           kDeleteIcon,

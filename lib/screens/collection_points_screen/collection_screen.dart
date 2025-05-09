@@ -9,6 +9,7 @@ import '../../../utils/app_styles.dart';
 import '../../custom_widgets/approve_dialoge.dart';
 import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/dashboard_container.dart';
+import '../../custom_widgets/delete_dialog.dart';
 import '../../custom_widgets/detail_row.dart';
 import '../../custom_widgets/revenue_chat.dart';
 import '../sidemenu/sidemenu.dart';
@@ -311,7 +312,12 @@ class CollectionScreen extends GetView<CollectionController> {
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return DeleteDialog();
+                            },
+                          );
                         },
                         child: SvgPicture.asset(
                           kDeleteIcon,

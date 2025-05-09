@@ -26,8 +26,12 @@ const Color kBorderColor4 = Color(0xFFE3E3E7);
 const Color kBorderColor5 = Color(0xFFE1E2E9);
 const Color kBlueColor = Color(0xFF151D48);
 const Color kDarkBlueColor = Color(0xFF1D1F2C);
+const Color kLightBlueColor = Color(0xFF7B91B0);
 const Color kCreamColor = Color(0xFFFAFBFD);
 const Color kCreamColor2 = Color(0xFFF2F2F2);
 const Color kCreamColor3 = Color(0xFFFDFDFD);
 const Color kAmberColor = Color(0xFFFFC107);
+const Color kBarColor = Color(0xFFF6F6F6);
+const Color kDisableBtnTextColor = Color(0xFFADB5BD);
+const Color kDisableButtonColor = Color(0xFFE9ECEF);
 

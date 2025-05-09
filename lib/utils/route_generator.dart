@@ -6,8 +6,8 @@ import '../screens/chat_screen/chat_screen.dart';
 import '../screens/collection_points_screen/collection_screen.dart';
 import '../screens/dashboard_screen/dashboard_screen.dart';
 import '../screens/employee_screen/employee_screen.dart';
-import '../screens/report_screen/report_screen.dart';
 import '../screens/sales_screen/sales_srceen.dart';
+import '../screens/terms_condition/term_condition.dart';
 import '../screens/user_screen/user_screen.dart';
 import 'app_strings.dart';
 
@@ -18,12 +18,12 @@ class RouteGenerator {
       GetPage(name: kDashboardScreenRoute, page: () => DashboardScreen(), binding: ScreenBindings(),),
       GetPage(name: kUserScreenRoute, page: () => UserScreen(), binding: ScreenBindings(),),
       GetPage(name: kEmployeeScreenRoute, page: () => EmployeeScreen(), binding: ScreenBindings(),),
-      GetPage(name: kReportScreenRoute, page: () => ReportScreen(), binding: ScreenBindings(),),
       GetPage(name: kSalesScreenRoute, page: () => SalesScreen(), binding: ScreenBindings(),),
       GetPage(name: kChatScreenRoute, page: () => ChatScreen(), binding: ScreenBindings(),),
       GetPage(name: kSupportScreenRoute, page: () => SupportScreen(), binding: ScreenBindings(),),
       GetPage(name: kCollectionScreenRoute, page: () => CollectionScreen(), binding: ScreenBindings(),),
       GetPage(name: kDistributionScreenRoute, page: () => DistributionScreen(), binding: ScreenBindings(),),
+      GetPage(name: kTermsScreenRoute, page: () => TermsScreen(), binding: ScreenBindings(),),
     ];
   }
 }
