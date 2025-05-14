@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 import '../../../utils/app_styles.dart';
@@ -12,323 +13,784 @@ import '../../custom_widgets/custom_button.dart';
 import '../../custom_widgets/dashboard_container.dart';
 import '../../custom_widgets/delete_dialog.dart';
 import '../../custom_widgets/detail_row.dart';
+import '../../custom_widgets/product_widget.dart';
 import '../../custom_widgets/show_detail_dialog.dart';
+import '../../custom_widgets/user_card.dart';
 import '../sidemenu/sidemenu.dart';
 
 class DistributionScreen extends GetView<DistributionController> {
   const DistributionScreen({super.key});
 
+  // Widget detailsDialogue(BuildContext context) {
+  //   return Dialog(
+  //     backgroundColor: kWhiteColor,
+  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  //     child: SizedBox(
+  //       width: 693,
+  //       child: Padding(
+  //         padding: EdgeInsets.all(24),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             Container(
+  //               height: 46,
+  //               decoration: BoxDecoration(
+  //                 border: Border(
+  //                   bottom: BorderSide(color: kGreyShade5Color, width: 0.4),
+  //                 ),
+  //               ),
+  //               child: Row(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   Text(
+  //                     "Detail Overview",
+  //                     style: AppStyles.blackTextStyle().copyWith(
+  //                       fontSize: 14,
+  //                       fontWeight: FontWeight.w700,
+  //                       color: kBlackColor,
+  //                     ),
+  //                   ),
+  //                   Spacer(),
+  //                   InkWell(
+  //                     onTap: () {
+  //                       Get.back();
+  //                     },
+  //                     child: SvgPicture.asset(
+  //                       kCloseIcon,
+  //                       height: 16,
+  //                       width: 16,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             Padding(
+  //               padding: const EdgeInsets.symmetric(vertical: 24),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   DetailRowWidget(title: "Employee Name", detail: "Alexa"),
+  //                   DetailRowWidget(title: "Assigned Collection Point", detail: "A, b, c"),
+  //                   DetailRowWidget(title: "Avg. Approval Time (mins)", detail: "3.5"),
+  //                   DetailRowWidget(title: "Orders Handled", detail: "12"),
+  //                   DetailRowWidget(title: "Driver Approvals", detail: "12"),
+  //                   DetailRowWidget(title: "Supplier Approvals:", detail: "12"),
+  //                 ],
+  //               ),
+  //             ),
+  //             Container(
+  //               height: 66,
+  //               decoration: BoxDecoration(
+  //                   border: Border(
+  //                       top: BorderSide(
+  //                           color: kGreyShade5Color,
+  //                           width: 0.4
+  //                       )
+  //                   )
+  //               ),
+  //               child: Row(
+  //                 crossAxisAlignment: CrossAxisAlignment.end,
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
+  //                     CustomButton(title: "Cancel", onTap: (){
+  //                       Get.back();
+  //                     },borderColor: kBorderColor2,color: kWhiteColor,height: 40,width: 79,textSize: 14,fontWeight: FontWeight.w600,textColor: kDarkBlueColor,),
+  //                     CustomButton(title: "De-activate User", onTap: (){
+  //                       Get.back();
+  //
+  //                     },height: 40,width: 151,textSize: 14,fontWeight: FontWeight.w600,),
+  //                 ],
+  //               ),
+  //             )
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget detailsDialogue(BuildContext context) {
     return Dialog(
       backgroundColor: kWhiteColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: SizedBox(
         width: 693,
-        child: Padding(
+        child: Obx(() => Padding(
           padding: EdgeInsets.all(24),
-          child: Obx(() => Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                  height: 46,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              color: kGreyShade5Color,
-                              width: 0.4
-                          )
-                      )
+                height: 46,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: kGreyShade5Color, width: 0.4),
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          controller.selectedTab.value = 'Revenue Generated';
-                        },
-                        child: Text(
-                          "Revenue Generated",
-                          style: AppStyles.blackTextStyle()
-                              .copyWith(
-                              fontSize: 14,
-                              fontWeight: controller.selectedTab.value == "Revenue Generated" ? FontWeight.w700 : FontWeight.w400,
-                              color: controller.selectedTab.value == "Revenue Generated" ? kBlackColor : kDarkBlueColor
-                          ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: (){
+                        controller.selectedTab.value = 'Detail Overview';
+                        controller.showDetail.value = false;
+                      },
+                      child: Text(
+                        "Detail Overview",
+                        style: AppStyles.blackTextStyle().copyWith(
+                          fontSize: 14,
+                            fontWeight: controller.selectedTab.value == "Detail Overview" ? FontWeight.w700 : FontWeight.w400,
+                            color: controller.selectedTab.value == "Detail Overview" ? kBlackColor : kDarkBlueColor
                         ),
                       ),
-                      SizedBox(width: 27.w,),
-                      GestureDetector(
-                        onTap: (){
-                          controller.selectedTab.value = 'Compliance Detail';
-
-                        },
-                        child: Text(
-                          "Compliance Detail",
-                          style: AppStyles.blackTextStyle()
-                              .copyWith(
-                              fontSize: 14,
-                              fontWeight: controller.selectedTab.value == "Compliance Detail" ? FontWeight.w700 : FontWeight.w400,
-                              color: controller.selectedTab.value == "Compliance Detail" ? kBlackColor : kDarkBlueColor
-                          ),
+                    ),
+                    SizedBox(width: 27.w,),
+                    GestureDetector(
+                      onTap: (){
+                        controller.selectedTab.value = 'Products';
+                        controller.showDetail.value = false;
+                      },
+                      child: Text(
+                        "Products",
+                        style: AppStyles.blackTextStyle()
+                            .copyWith(
+                            fontSize: 14,
+                            fontWeight: controller.selectedTab.value == "Products" ? FontWeight.w700 : FontWeight.w400,
+                            color: controller.selectedTab.value == "Products" ? kBlackColor : kDarkBlueColor
                         ),
                       ),
-                      SizedBox(width: 27.w,),
-                      GestureDetector(
-                        onTap: (){
-                          controller.selectedTab.value = 'Reviews';
-
-                        },
-                        child: Text(
-                          "Reviews",
-                          style: AppStyles.blackTextStyle()
-                              .copyWith(
-                              fontSize: 14,
-                              fontWeight: controller.selectedTab.value == "Reviews" ? FontWeight.w700 : FontWeight.w400,
-                              color: controller.selectedTab.value == "Reviews" ? kBlackColor : kDarkBlueColor
-                          ),
+                    ),
+                    SizedBox(width: 27.w,),
+                    GestureDetector(
+                      onTap: (){
+                        controller.selectedTab.value = 'Orders';
+                        controller.showDetail.value = false;
+                      },
+                      child: Text(
+                        "Orders",
+                        style: AppStyles.blackTextStyle()
+                            .copyWith(
+                            fontSize: 14,
+                            fontWeight: controller.selectedTab.value == "Orders" ? FontWeight.w700 : FontWeight.w400,
+                            color: controller.selectedTab.value == "Orders" ? kBlackColor : kDarkBlueColor
                         ),
                       ),
-                      SizedBox(width: 27.w,),
-                      GestureDetector(
-                        onTap: (){
-                          controller.selectedTab.value = 'Revenue Details';
-
-                        },
-                        child: Text(
-                          "Revenue Details",
-                          style: AppStyles.blackTextStyle()
-                              .copyWith(
-                              fontSize: 14,
-                              fontWeight: controller.selectedTab.value == "Revenue Details" ? FontWeight.w700 : FontWeight.w400,
-                              color: controller.selectedTab.value == "Revenue Details" ? kBlackColor : kDarkBlueColor
-                          ),
-                        ),
+                    ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: SvgPicture.asset(
+                        kCloseIcon,
+                        height: 16,
+                        width: 16,
                       ),
-                      Spacer(),
-                      InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: SvgPicture.asset(
-                          kCloseIcon,
-                          height: 16,
-                          width: 16,
-                        ),
-                      ),
-                    ],
-                  )
+                    ),
+                  ],
+                ),
               ),
-              if(controller.selectedTab.value == 'Revenue Generated')
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Column(
-                    spacing: 6,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          DetailRowWidget(title: "Order ID | Revenue Generated", detail: "4548 | \$65"),
-                          InkWell(
-                              onTap: (){
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return showDetailDialogue(context);
-                                  },
-                                );
-                              },
-                              child: Text("DETAILS",style: AppStyles.whiteTextStyle().copyWith(color: kPrimaryColor,fontSize: 12,fontWeight: FontWeight.w400),))
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          DetailRowWidget(title: "Order ID | Revenue Generated", detail: "4548 | \$65"),
-                          InkWell(
-                              onTap: (){
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return showDetailDialogue(context);
-                                  },
-                                );
-                              },
-                              child: Text("DETAILS",style: AppStyles.whiteTextStyle().copyWith(color: kPrimaryColor,fontSize: 12,fontWeight: FontWeight.w400),))
-                        ],
-                      ),
-                    ],
-                  ),
+              if (controller.selectedTab.value == 'Detail Overview')
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    UserCard(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showChatDialogue(context);
+                          },
+                        );
+                      },
+                    ),
+                    SizedBox(width: 15),
+                    UserCard(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showChatDialogue(context);
+                          },
+                        );
+                      },
+                    ),
+                    SizedBox(width: 15),
+                    UserCard(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showChatDialogue(context);
+                          },
+                        );
+                      },
+                    ),
+                    SizedBox(width: 15),
+                    UserCard(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showChatDialogue(context);
+                          },
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              if(controller.selectedTab.value == 'Compliance Detail')
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Column(
-                    spacing: 6,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DetailRowWidget(title: "Account Verification Status", detail: "Confirmed"),
-                      DetailRowWidget(title: "Completed Order", detail: "44"),
-                      DetailRowWidget(title: "Missed Order", detail: "2"),
-                      DetailRowWidget(title: "Total Previous Withdrawls", detail: "44"),
-                      DetailRowWidget(title: "Any previous payment issues", detail: "No"),
-                    ],
-                  ),
-                ),
-              if(controller.selectedTab.value == 'Reviews')
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Column(
-                    spacing: 6,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListView.builder(
-                        padding: EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 44,
-                                      width: 44,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(100),
+              ),
+              if (controller.selectedTab.value == 'Products')
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 2,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 26.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.asset(kAvatar2,height: 50,width: 50,),
+                              ),
+                              SizedBox(
+                                width: 17,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "James Williams",
+                                    style: AppStyles.blackTextStyle()
+                                        .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                                  ),
+                                  SizedBox(height: 4,),
+                                  Row(
+                                    children: [
+                                      Image.asset(kStarIcon,height: 12,width: 12,),
+                                      SizedBox(width: 6,),
+                                      Text(
+                                        "4.8",
+                                        style: AppStyles.blackTextStyle()
+                                            .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
                                       ),
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(100),
-                                          child: Image.asset(kAvatar2,fit: BoxFit.cover,)),
-                                    ),
-                                    SizedBox(
-                                      width: 13,
-                                    ),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Haylie Aminoff",
-                                          style: AppStyles.blackTextStyle()
-                                              .copyWith(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                              color: kDarkBlueColor
+                                      Text(
+                                        "(60 Reviews)",
+                                        style: AppStyles.greyTextStyle()
+                                            .copyWith(fontSize: 10, fontWeight: FontWeight.w600,color: kGreyShade5Color),
+                                      ),
+                                      SizedBox(width: 6,),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 16,),
+                          Row(
+                            children:
+                            controller.products.asMap().entries.map((
+                                entry,
+                                ) {
+                              final index = entry.key;
+                              final product = entry.value;
+                              final isLast =
+                                  index == controller.products.length - 1;
+
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  right: isLast ? 0 : 15,
+                                ),
+                                child: ProductWidget(
+                                  productImage: product['image']!,
+                                  name: product['name']!,
+                                  price: product['price']!,
+                                  stockValue: product['stock']!,
+                                  showStock: true,
+                                  availableStock: "Low Stock",
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    );
+                  },),
+              if(controller.selectedTab.value == 'Orders')
+                Obx(() => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: Column(
+                    spacing: 6,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if(controller.showDetail.value == false) ...[
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(
+                                        width: 1,
+                                        color: kGreyShade8Color
+                                    )
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                SizedBox(height: 3,),
+                                                Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                                SizedBox(height: 9,),
+                                                Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                SizedBox(height: 3,),
+                                                Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          "32 minutes ago",
-                                          style: AppStyles.blackTextStyle()
-                                              .copyWith(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              color: kGreyShade7Color
+                                          SizedBox(width: 45,),
+                                          Expanded(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  height: 42,
+                                                  width: 42,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(100),
+                                                  ),
+                                                  child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(100),
+                                                      child: Image.asset(kAvatar2,fit: BoxFit.cover,)),
+                                                ),
+                                                SizedBox(height: 7,),
+                                                Text("James Williams",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w700,fontSize: 12),),
+                                                SizedBox(height: 3,),
+                                                Row(
+                                                  children: [
+                                                    RatingBarIndicator(
+                                                      rating: controller.rating.value,
+                                                      itemBuilder: (context, index) => Icon(
+                                                        Icons.star_rounded,
+                                                        color: kAmberColor,
+                                                      ),
+                                                      itemCount: 1,
+                                                      itemSize: 18,
+                                                      unratedColor: Colors.grey[300],
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "4.8",
+                                                      style: AppStyles.blackTextStyle()
+                                                          .copyWith(
+                                                        fontSize: 11,
+                                                        fontWeight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "(60 Reviews)",
+                                                      style: AppStyles.greyTextStyle()
+                                                          .copyWith(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: kGreyShade10Color
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
+                                      SizedBox(height: 12,),
+                                      CustomButton(title: "View Details", onTap: (){
+                                        controller.showDetail.value = true;
+                                      },color: kWhiteColor,borderColor: kPrimaryColor,textColor: kGreyShade9Color,textSize: 13,fontWeight: FontWeight.w400,height: 36,)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 45,),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(
+                                        width: 1,
+                                        color: kGreyShade8Color
+                                    )
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                SizedBox(height: 3,),
+                                                Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                                SizedBox(height: 9,),
+                                                Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                SizedBox(height: 3,),
+                                                Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(width: 45,),
+                                          Expanded(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  height: 42,
+                                                  width: 42,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(100),
+                                                  ),
+                                                  child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(100),
+                                                      child: Image.asset(kAvatar2,fit: BoxFit.cover,)),
+                                                ),
+                                                SizedBox(height: 7,),
+                                                Text("James Williams",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w700,fontSize: 12),),
+                                                SizedBox(height: 3,),
+                                                Row(
+                                                  children: [
+                                                    RatingBarIndicator(
+                                                      rating: controller.rating.value,
+                                                      itemBuilder: (context, index) => Icon(
+                                                        Icons.star_rounded,
+                                                        color: kAmberColor,
+                                                      ),
+                                                      itemCount: 1,
+                                                      itemSize: 18,
+                                                      unratedColor: Colors.grey[300],
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "4.8",
+                                                      style: AppStyles.blackTextStyle()
+                                                          .copyWith(
+                                                        fontSize: 11,
+                                                        fontWeight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "(60 Reviews)",
+                                                      style: AppStyles.greyTextStyle()
+                                                          .copyWith(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: kGreyShade10Color
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 12,),
+                                      CustomButton(title: "View Details", onTap: (){
+                                        controller.showDetail.value = true;
+                                      },color: kWhiteColor,borderColor: kPrimaryColor,textColor: kGreyShade9Color,textSize: 13,fontWeight: FontWeight.w400,height: 36,)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                      if(controller.showDetail.value) ...[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: 186,
+                              width: double.infinity,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: GoogleMap(
+                                  initialCameraPosition: CameraPosition(
+                                    target: LatLng(37.7749, -122.4194),
+                                    zoom: 14,
+                                  ),
+                                  zoomControlsEnabled: false,
+                                  myLocationButtonEnabled: false,
+                                  onMapCreated: (GoogleMapController controller) {
+
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 16,),
+                            DetailRowWidget(title: "Order ID", detail: "1712351276"),
+                            SizedBox(height: 6,),
+                            DetailRowWidget(title: "Order Status", detail: "Out for Delivery"),
+                            SizedBox(height: 6,),
+                            DetailRowWidget(title: "Payment Status", detail: "Paid"),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Divider(
+                              height: 0.4,
+                              thickness: 0.4,
+                              color: kGreyShade5Color,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Customer Detail:",
+                                      style: AppStyles.blackTextStyle()
+                                          .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
                                     ),
-                                    Spacer(),
+                                    SizedBox(height: 8,),
                                     Row(
                                       children: [
-                                        Text(
-                                          "4.0",
-                                          style: AppStyles.blackTextStyle()
-                                              .copyWith(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w500,
-                                              color: kDarkBlueColor
-                                          ),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(100),
+                                          child: Image.asset(kAvatar2,height: 50,width: 50,),
                                         ),
                                         SizedBox(
-                                          width: 5,
+                                          width: 17,
                                         ),
-                                        RatingBarIndicator(
-                                          rating: controller.rating.value,
-                                          itemBuilder: (context, index) => Icon(
-                                            Icons.star_rounded,
-                                            color: kAmberColor,
-                                          ),
-                                          itemCount: 5,
-                                          itemSize: 18,
-                                          unratedColor: Colors.grey[300],
-                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "James Williams",
+                                              style: AppStyles.blackTextStyle()
+                                                  .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(height: 4,),
+                                            Row(
+                                              children: [
+                                                Image.asset(kStarIcon,height: 12,width: 12,),
+                                                SizedBox(width: 6,),
+                                                Text(
+                                                  "4.8",
+                                                  style: AppStyles.blackTextStyle()
+                                                      .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
+                                                ),
+                                                Text(
+                                                  "(60 Reviews)",
+                                                  style: AppStyles.greyTextStyle()
+                                                      .copyWith(fontSize: 10, fontWeight: FontWeight.w600,color: kGreyShade5Color),
+                                                ),
+                                                SizedBox(width: 6,),
+                                              ],
+                                            )
+                                          ],
+                                        )
                                       ],
-                                    ),
+                                    )
                                   ],
                                 ),
-                                SizedBox(height: 12,),
-                                Text(
-                                  "Lorem ipsum dolor sit amet, consetetur sadi sspscing elitr, sed diam nonumy",
-                                  style: AppStyles.blackTextStyle()
-                                      .copyWith(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w300,
-                                  ),
+                                SizedBox(width: 121,),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Customer Detail:",
+                                      style: AppStyles.blackTextStyle()
+                                          .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
+                                    ),
+                                    SizedBox(height: 8,),
+                                    Row(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(100),
+                                          child: Image.asset(kAvatar2,height: 50,width: 50,),
+                                        ),
+                                        SizedBox(
+                                          width: 17,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "James Williams",
+                                              style: AppStyles.blackTextStyle()
+                                                  .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(height: 4,),
+                                            Row(
+                                              children: [
+                                                Image.asset(kStarIcon,height: 12,width: 12,),
+                                                SizedBox(width: 6,),
+                                                Text(
+                                                  "4.8",
+                                                  style: AppStyles.blackTextStyle()
+                                                      .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
+                                                ),
+                                                Text(
+                                                  "(60 Reviews)",
+                                                  style: AppStyles.greyTextStyle()
+                                                      .copyWith(fontSize: 10, fontWeight: FontWeight.w600,color: kGreyShade5Color),
+                                                ),
+                                                SizedBox(width: 6,),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
                               ],
                             ),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              if(controller.selectedTab.value == 'Revenue Details')
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Column(
-                    spacing: 6,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DetailRowWidget(title: "14/06/2021, 14:24 AM:", detail: "\$100",isEmployeePage: true,),
-                      DetailRowWidget(title: "14/06/2021, 14:24 AM:", detail: "\$100",isEmployeePage: true,),
-                      DetailRowWidget(title: "14/06/2021, 14:24 AM:", detail: "\$100",isEmployeePage: true,),
-                      DetailRowWidget(title: "14/06/2021, 14:24 AM:", detail: "\$100",isEmployeePage: true,),
-                    ],
-                  ),
-                ),
-              Container(
-                height: 66,
-                decoration: BoxDecoration(
-                    border: Border(
-                        top: BorderSide(
-                            color: kGreyShade5Color,
-                            width: 0.4
+
+                          ],
                         )
-                    )
+                      ],
+                    ],
+                  ),
+                ),),
+            ],
+          ),
+        ),),
+      ),
+    );
+  }
+
+  Widget showChatDialogue(BuildContext context) {
+    return Dialog(
+      backgroundColor: kWhiteColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: SizedBox(
+        width: 693,
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 46,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: kGreyShade5Color, width: 0.4),
+                  ),
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomButton(title: "Cancel", onTap: (){
-                      Get.back();
-                    },borderColor: kBorderColor2,color: kWhiteColor,height: 40,width: 79,textSize: 14,fontWeight: FontWeight.w600,textColor: kDarkBlueColor,),
-                    CustomButton(title: "Apply Deduction", onTap: (){
-                      Get.back();
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return approveDialogue(context,isApplyDeduction: true);
-                        },
-                      );
-                    },height: 40,width: 151,textSize: 14,fontWeight: FontWeight.w600,),
+                    Text(
+                      "Chat Overview",
+                      style: AppStyles.blackTextStyle().copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: kBlackColor,
+                      ),
+                    ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: SvgPicture.asset(
+                        kCloseIcon,
+                        height: 16,
+                        width: 16,
+                      ),
+                    ),
                   ],
                 ),
-              )
+              ),
+              SizedBox(height: 24),
+              SizedBox(
+                // width: 329,
+                child: ListView.builder(
+                  itemCount: controller.messages.length,
+                  shrinkWrap: true,
+                  // padding: EdgeInsets.all(0),
+                  itemBuilder: (context, index) {
+                    final message = controller.messages[index];
+                    final isMe = message['isMe'] as bool;
+                    final text = message['text'] as String;
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Align(
+                        alignment:
+                        isMe ? Alignment.centerRight : Alignment.centerLeft,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            color:
+                            isMe
+                                ? kPrimaryColor.withOpacity(0.1)
+                                : kWhiteColor2,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                              bottomLeft: Radius.circular(isMe ? 16 : 0),
+                              bottomRight: Radius.circular(isMe ? 0 : 16),
+                            ),
+                          ),
+                          constraints: BoxConstraints(maxWidth: 329),
+                          child: Text(
+                            text,
+                            style: AppStyles.blackTextStyle().copyWith(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
-          ),),
+          ),
         ),
       ),
     );
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -346,7 +808,7 @@ class DistributionScreen extends GetView<DistributionController> {
             const SideMenu(),
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
+                child: Obx(() => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -611,272 +1073,559 @@ class DistributionScreen extends GetView<DistributionController> {
                           SizedBox(
                             height: 32.h,
                           ),
-                          Obx(() => Container(
-                            width: width,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(14.r),
-                                topRight: Radius.circular(14.r),
+                          if(controller.selectedEmployee.value == "Employee Performance") ...[
+                            Obx(() => Container(
+                              width: width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(14.r),
+                                  topRight: Radius.circular(14.r),
+                                ),
+                                border: Border.all(
+                                    color: kGreyColor, width: 0.3),
                               ),
-                              border: Border.all(
-                                  color: kGreyColor, width: 0.3),
-                            ),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  height: 49,
-                                  decoration: BoxDecoration(
-                                    color: kPrimaryColor,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(14),
-                                      topRight: Radius.circular(14),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: 49,
+                                    decoration: BoxDecoration(
+                                      color: kPrimaryColor,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(14),
+                                        topRight: Radius.circular(14),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: width,
-                                  child: DataTable(
-                                    columnSpacing: 0,
-                                    headingRowHeight: 49,
-                                    columns: [
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Employee Name",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                  SizedBox(
+                                    width: width,
+                                    child: DataTable(
+                                      columnSpacing: 0,
+                                      headingRowHeight: 49,
+                                      columns: [
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Employee Name",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Collection Point",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Collection Point",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Orders Handled",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Orders Handled",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Driver | Supplier Approvals",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Driver | Supplier Approvals",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      DataColumn(
-                                        headingRowAlignment:
-                                        MainAxisAlignment.center,
-                                        label: Flexible(
-                                          child: Text(
-                                            "Actions",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                        DataColumn(
+                                          headingRowAlignment:
+                                          MainAxisAlignment.center,
+                                          label: Flexible(
+                                            child: Text(
+                                              "Actions",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                    rows: controller.currentPageUsers
-                                        .map((user) => _buildDataRow(
-                                        user['name']!,
-                                        user['point']!,
-                                        user['orders']!,
-                                        user['approvals']!,
-                                        context))
-                                        .toList(),
-                                    dataRowMaxHeight: 65,
+                                      ],
+                                      rows: controller.currentPageUsers
+                                          .map((user) => _buildDataRow(
+                                          user['name']!,
+                                          user['point']!,
+                                          user['orders']!,
+                                          user['approvals']!,
+                                          context))
+                                          .toList(),
+                                      dataRowMaxHeight: 65,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                            ),),
+                            SizedBox(
+                              height: 51.h,
                             ),
-                          ),),
-                          SizedBox(
-                            height: 51.h,
-                          ),
-                          Obx(() => Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: controller.isBackButtonDisabled
-                                    ? null
-                                    : controller.goToPreviousPage,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 12),
-                                  decoration: BoxDecoration(
-                                    color: controller.isBackButtonDisabled
-                                        ? kCreamColor2
-                                        : kPrimaryColor,
-                                    border: Border.all(
+                            Obx(() => Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: controller.isBackButtonDisabled
+                                      ? null
+                                      : controller.goToPreviousPage,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 12),
+                                    decoration: BoxDecoration(
                                       color: controller.isBackButtonDisabled
                                           ? kCreamColor2
                                           : kPrimaryColor,
+                                      border: Border.all(
+                                        color: controller.isBackButtonDisabled
+                                            ? kCreamColor2
+                                            : kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
                                     ),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.arrow_back_ios_new_outlined,
-                                          size: 12,
-                                          color:
-                                          controller.isBackButtonDisabled
-                                              ? kBlackColor
-                                              : kWhiteColor),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        'Back',
-                                        style: AppStyles.blackTextStyle()
-                                            .copyWith(
-                                          fontSize: 12,
-                                          color:
-                                          controller.isBackButtonDisabled
-                                              ? kBlackColor
-                                              : kWhiteColor,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.arrow_back_ios_new_outlined,
+                                            size: 12,
+                                            color:
+                                            controller.isBackButtonDisabled
+                                                ? kBlackColor
+                                                : kWhiteColor),
+                                        const SizedBox(
+                                          width: 4,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              ...List.generate(
-                                controller.totalPages,
-                                    (index) {
-                                  bool isSelected = index + 1 ==
-                                      controller.currentPage.value;
-                                  return GestureDetector(
-                                    onTap: () =>
-                                        controller.changePage(index + 1),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 6),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8, horizontal: 12),
-                                        decoration: BoxDecoration(
-                                          color: isSelected
-                                              ? kPrimaryColor
-                                              : kCreamColor2,
-                                          borderRadius:
-                                          BorderRadius.circular(4),
-                                          border: Border.all(
-                                            color: isSelected
-                                                ? kPrimaryColor
-                                                : kCreamColor,
+                                        Text(
+                                          'Back',
+                                          style: AppStyles.blackTextStyle()
+                                              .copyWith(
+                                            fontSize: 12,
+                                            color:
+                                            controller.isBackButtonDisabled
+                                                ? kBlackColor
+                                                : kWhiteColor,
                                           ),
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            (index + 1).toString(),
-                                            style: AppStyles.blackTextStyle()
-                                                .copyWith(
-                                              fontSize: 12,
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                ...List.generate(
+                                  controller.totalPages,
+                                      (index) {
+                                    bool isSelected = index + 1 ==
+                                        controller.currentPage.value;
+                                    return GestureDetector(
+                                      onTap: () =>
+                                          controller.changePage(index + 1),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 6),
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8, horizontal: 12),
+                                          decoration: BoxDecoration(
+                                            color: isSelected
+                                                ? kPrimaryColor
+                                                : kCreamColor2,
+                                            borderRadius:
+                                            BorderRadius.circular(4),
+                                            border: Border.all(
                                               color: isSelected
-                                                  ? kWhiteColor
-                                                  : kBlackColor,
+                                                  ? kPrimaryColor
+                                                  : kCreamColor,
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              (index + 1).toString(),
+                                              style: AppStyles.blackTextStyle()
+                                                  .copyWith(
+                                                fontSize: 12,
+                                                color: isSelected
+                                                    ? kWhiteColor
+                                                    : kBlackColor,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
+                                    );
+                                  },
+                                ),
+                                // const SizedBox(width: 12,),
+                                GestureDetector(
+                                  onTap: controller.isNextButtonDisabled
+                                      ? null
+                                      : controller.goToNextPage,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 12),
+                                    decoration: BoxDecoration(
+                                      color: controller.isNextButtonDisabled
+                                          ? kCreamColor2
+                                          : kPrimaryColor,
+                                      border: Border.all(
+                                          color: controller.isNextButtonDisabled ? kCreamColor2 : kPrimaryColor
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
                                     ),
-                                  );
-                                },
-                              ),
-                              // const SizedBox(width: 12,),
-                              GestureDetector(
-                                onTap: controller.isNextButtonDisabled
-                                    ? null
-                                    : controller.goToNextPage,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 12),
-                                  decoration: BoxDecoration(
-                                    color: controller.isNextButtonDisabled
-                                        ? kCreamColor2
-                                        : kPrimaryColor,
-                                    border: Border.all(
-                                        color: controller.isNextButtonDisabled ? kCreamColor2 : kPrimaryColor
-                                    ),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Next',
-                                        style: AppStyles.blackTextStyle()
-                                            .copyWith(
-                                          fontSize: 12,
-                                          color:
-                                          controller.isNextButtonDisabled
-                                              ? kBlackColor
-                                              : kWhiteColor,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Next',
+                                          style: AppStyles.blackTextStyle()
+                                              .copyWith(
+                                            fontSize: 12,
+                                            color:
+                                            controller.isNextButtonDisabled
+                                                ? kBlackColor
+                                                : kWhiteColor,
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                      Icon(Icons.arrow_forward_ios_outlined,
-                                          size: 12,
-                                          color:
-                                          controller.isNextButtonDisabled
-                                              ? kBlackColor
-                                              : kWhiteColor),
-                                    ],
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        Icon(Icons.arrow_forward_ios_outlined,
+                                            size: 12,
+                                            color:
+                                            controller.isNextButtonDisabled
+                                                ? kBlackColor
+                                                : kWhiteColor),
+                                      ],
+                                    ),
                                   ),
                                 ),
+                              ],
+                            ),)
+                          ],
+                          if(controller.selectedEmployee.value == "Request Approval") ...[
+                            Obx(() => Container(
+                              width: width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(14.r),
+                                  topRight: Radius.circular(14.r),
+                                ),
+                                border: Border.all(
+                                    color: kGreyColor, width: 0.3),
                               ),
-                            ],
-                          ),)
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: 49,
+                                    decoration: BoxDecoration(
+                                      color: kPrimaryColor,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(14),
+                                        topRight: Radius.circular(14),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: width,
+                                    child: DataTable(
+                                      columnSpacing: 0,
+                                      headingRowHeight: 49,
+                                      columns: [
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Request ID",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Employee Name",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Request Type",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Requester (Supplier/Driver)",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          headingRowAlignment:
+                                          MainAxisAlignment.center,
+                                          label: Flexible(
+                                            child: Text(
+                                              "Status",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          headingRowAlignment:
+                                          MainAxisAlignment.center,
+                                          label: Flexible(
+                                            child: Text(
+                                              "Notes",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                      rows: controller.currentPageDecisions
+                                          .map((user) => _buildDataRow1(
+                                          user['id']!,
+                                          user['name']!,
+                                          user['type']!,
+                                          user['requester']!,
+                                          user['status']!,
+                                          user['statusBackColor'],
+                                          user['StatusColor'],
+                                          user['notes'],
+                                          context))
+                                          .toList(),
+                                      dataRowMaxHeight: 65,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),),
+                            SizedBox(
+                              height: 51.h,
+                            ),
+                            Obx(() => Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: controller.isBackButtonDisabled1
+                                      ? null
+                                      : controller.goToPreviousPage1,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 12),
+                                    decoration: BoxDecoration(
+                                      color: controller.isBackButtonDisabled1
+                                          ? kCreamColor2
+                                          : kPrimaryColor,
+                                      border: Border.all(
+                                        color: controller.isBackButtonDisabled1
+                                            ? kCreamColor2
+                                            : kPrimaryColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.arrow_back_ios_new_outlined,
+                                            size: 12,
+                                            color:
+                                            controller.isBackButtonDisabled1
+                                                ? kBlackColor
+                                                : kWhiteColor),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          'Back',
+                                          style: AppStyles.blackTextStyle()
+                                              .copyWith(
+                                            fontSize: 12,
+                                            color:
+                                            controller.isBackButtonDisabled1
+                                                ? kBlackColor
+                                                : kWhiteColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                ...List.generate(
+                                  controller.totalPages1,
+                                      (index) {
+                                    bool isSelected = index + 1 ==
+                                        controller.currentPage1.value;
+                                    return GestureDetector(
+                                      onTap: () =>
+                                          controller.changePage1(index + 1),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 6),
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8, horizontal: 12),
+                                          decoration: BoxDecoration(
+                                            color: isSelected
+                                                ? kPrimaryColor
+                                                : kCreamColor2,
+                                            borderRadius:
+                                            BorderRadius.circular(4),
+                                            border: Border.all(
+                                              color: isSelected
+                                                  ? kPrimaryColor
+                                                  : kCreamColor,
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              (index + 1).toString(),
+                                              style: AppStyles.blackTextStyle()
+                                                  .copyWith(
+                                                fontSize: 12,
+                                                color: isSelected
+                                                    ? kWhiteColor
+                                                    : kBlackColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                // const SizedBox(width: 12,),
+                                GestureDetector(
+                                  onTap: controller.isNextButtonDisabled1
+                                      ? null
+                                      : controller.goToNextPage1,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 12),
+                                    decoration: BoxDecoration(
+                                      color: controller.isNextButtonDisabled1
+                                          ? kCreamColor2
+                                          : kPrimaryColor,
+                                      border: Border.all(
+                                          color: controller.isNextButtonDisabled1 ? kCreamColor2 : kPrimaryColor
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Next',
+                                          style: AppStyles.blackTextStyle()
+                                              .copyWith(
+                                            fontSize: 12,
+                                            color:
+                                            controller.isNextButtonDisabled1
+                                                ? kBlackColor
+                                                : kWhiteColor,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        Icon(Icons.arrow_forward_ios_outlined,
+                                            size: 12,
+                                            color:
+                                            controller.isNextButtonDisabled1
+                                                ? kBlackColor
+                                                : kWhiteColor),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),)
+                          ]
+
                         ],
                       ),
                     )
                   ],
-                ),
+                ),),
               ),
             ),
           ],
@@ -975,4 +1724,94 @@ class DistributionScreen extends GetView<DistributionController> {
     );
   }
 
+  DataRow _buildDataRow1(
+      String id,
+      String empName,
+      String rqType,
+      String requester,
+      String status,
+      Color statusColor, Color statusBackColor,
+      String notes,
+      context,
+      ) {
+    return DataRow(
+      cells: [
+        DataCell(
+          Text(
+            id,
+            textAlign: TextAlign.center,
+            style: AppStyles.blackTextStyle().copyWith(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            empName,
+            textAlign: TextAlign.center,
+            style: AppStyles.blackTextStyle().copyWith(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            rqType,
+            textAlign: TextAlign.center,
+            style: AppStyles.blackTextStyle().copyWith(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            requester,
+            textAlign: TextAlign.center,
+            style: AppStyles.blackTextStyle().copyWith(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Center(
+            child: Container(
+              width: 93.w,
+              height: 27,
+              decoration: BoxDecoration(
+                color: statusBackColor,
+                borderRadius: BorderRadius.circular(5.r),
+              ),
+              child: Center(
+                child: Text(
+                  status,
+                  style: AppStyles.blackTextStyle().copyWith(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                      color: statusColor),
+                ),
+              ),
+            ),
+          ),
+        ),
+        DataCell(
+          Center(
+            child: Text(
+              notes,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: AppStyles.blackTextStyle().copyWith(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

@@ -3,10 +3,17 @@ import '../../../utils/app_colors.dart';
 
 class UserController extends GetxController {
   var selectedUserType = ''.obs;
-  RxDouble rating = 5.0.obs;
-  var selectedTab = 'Revenue Generated'.obs;
+  var showDetail = false.obs;
+  RxDouble rating = 4.5.obs;
+  var selectedTab = 'User Details'.obs;
   List<String> options = ["Customer", "Supplier"];
   RxString selectedOption = "".obs;
+  var messages = <Map<String, dynamic>>[
+    {'text': "Hello, I want to make enquiries about your product", 'isMe': false},
+    {'text': "Hello, I want to make enquiries about your product", 'isMe': false},
+    {'text': "Hello Janet, thank you for reaching out", 'isMe': true},
+    {'text': "Hello Janet, thank you for reaching out", 'isMe': true},
+  ].obs;
 
   void selectOption(String option) {
     selectedOption.value = option;

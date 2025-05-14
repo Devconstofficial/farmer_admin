@@ -3,6 +3,7 @@ import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 
 class CollectionController extends GetxController {
+  var selectedTab = 'Detail Overview'.obs;
 
   final List<Map<String, dynamic>> allCollections = [
     {"id": "00001", 'name' : "Christine Brooks", "Address": "979 Immanuel Ferry S", "assignedEmp": "80", },
@@ -16,6 +17,13 @@ class CollectionController extends GetxController {
     {"id": "00009", 'name' : "Christine Brooks", "Address": "979 Immanuel Ferry S", "assignedEmp": "50 (Supplied)",},
     {"id": "00010", 'name' : "Rosie Pearson", "Address": "979 Immanuel Ferry S", "assignedEmp": "50 (Supplied)",},
   ];
+
+  var messages = <Map<String, dynamic>>[
+    {'text': "Hello, I want to make enquiries about your product", 'isMe': false},
+    {'text': "Hello, I want to make enquiries about your product", 'isMe': false},
+    {'text': "Hello Janet, thank you for reaching out", 'isMe': true},
+    {'text': "Hello Janet, thank you for reaching out", 'isMe': true},
+  ].obs;
 
   final int itemsPerPage = 4;
 

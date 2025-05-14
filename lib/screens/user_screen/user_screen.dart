@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 import '../../../utils/app_styles.dart';
@@ -47,63 +48,65 @@ class UserScreen extends GetView<UserController> {
                     children: [
                       GestureDetector(
                         onTap: (){
-                          controller.selectedTab.value = 'Revenue Generated';
+                          controller.selectedTab.value = 'User Details';
+                          controller.showDetail.value = false;
                         },
                         child: Text(
-                          "Revenue Generated",
+                          "User Details",
                           style: AppStyles.blackTextStyle()
                               .copyWith(
                               fontSize: 14,
-                              fontWeight: controller.selectedTab.value == "Revenue Generated" ? FontWeight.w700 : FontWeight.w400,
-                              color: controller.selectedTab.value == "Revenue Generated" ? kBlackColor : kDarkBlueColor
+                              fontWeight: controller.selectedTab.value == "User Details" ? FontWeight.w700 : FontWeight.w400,
+                              color: controller.selectedTab.value == "User Details" ? kBlackColor : kDarkBlueColor
                           ),
                         ),
                       ),
                       SizedBox(width: 27.w,),
                       GestureDetector(
                         onTap: (){
-                          controller.selectedTab.value = 'Compliance Detail';
-
+                          controller.selectedTab.value = 'Orders';
+                          controller.showDetail.value = false;
                         },
                         child: Text(
-                          "Compliance Detail",
+                          "Orders",
                           style: AppStyles.blackTextStyle()
                               .copyWith(
                               fontSize: 14,
-                              fontWeight: controller.selectedTab.value == "Compliance Detail" ? FontWeight.w700 : FontWeight.w400,
-                              color: controller.selectedTab.value == "Compliance Detail" ? kBlackColor : kDarkBlueColor
+                              fontWeight: controller.selectedTab.value == "Orders" ? FontWeight.w700 : FontWeight.w400,
+                              color: controller.selectedTab.value == "Orders" ? kBlackColor : kDarkBlueColor
                           ),
                         ),
                       ),
                       SizedBox(width: 27.w,),
                       GestureDetector(
                         onTap: (){
-                          controller.selectedTab.value = 'Reviews';
-
+                          controller.selectedTab.value = 'Application Feedback';
+                          controller.showDetail.value = false;
                         },
                         child: Text(
-                          "Reviews",
+                          "Application Feedback",
                           style: AppStyles.blackTextStyle()
                               .copyWith(
                               fontSize: 14,
-                              fontWeight: controller.selectedTab.value == "Reviews" ? FontWeight.w700 : FontWeight.w400,
-                              color: controller.selectedTab.value == "Reviews" ? kBlackColor : kDarkBlueColor
+                              fontWeight: controller.selectedTab.value == "Application Feedback" ? FontWeight.w700 : FontWeight.w400,
+                              color: controller.selectedTab.value == "Application Feedback" ? kBlackColor : kDarkBlueColor
                           ),
                         ),
                       ),
                       SizedBox(width: 27.w,),
                       GestureDetector(
                         onTap: (){
-                          controller.selectedTab.value = 'Revenue Details';
+                          controller.selectedTab.value = 'View Support Chat';
+                          controller.showDetail.value = false;
 
                         },
                         child: Text(
-                          "Revenue Details",
+                          "View Support Chat",
                           style: AppStyles.blackTextStyle()
                               .copyWith(
                               fontSize: 14,
-                              fontWeight: controller.selectedTab.value == "Revenue Details" ? FontWeight.w700 : FontWeight.w400,
-                              color: controller.selectedTab.value == "Revenue Details" ? kBlackColor : kDarkBlueColor
+                              fontWeight: controller.selectedTab.value == "View Support Chat" ? FontWeight.w700 : FontWeight.w400,
+                              color: controller.selectedTab.value == "View Support Chat" ? kBlackColor : kDarkBlueColor
                           ),
                         ),
                       ),
@@ -121,176 +124,450 @@ class UserScreen extends GetView<UserController> {
                     ],
                   )
               ),
-              if(controller.selectedTab.value == 'Revenue Generated')
+              if(controller.selectedTab.value == 'User Details')
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Column(
                     spacing: 6,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          DetailRowWidget(title: "Order ID | Revenue Generated", detail: "4548 | \$65"),
-                          InkWell(
-                            onTap: (){
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return showDetailDialogue(context);
-                                },
-                              );
-                            },
-                              child: Text("DETAILS",style: AppStyles.whiteTextStyle().copyWith(color: kPrimaryColor,fontSize: 12,fontWeight: FontWeight.w400),))
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          DetailRowWidget(title: "Order ID | Revenue Generated", detail: "4548 | \$65"),
-                          InkWell(
-                              onTap: (){
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return showDetailDialogue(context);
-                                  },
-                                );
-                              },
-                              child: Text("DETAILS",style: AppStyles.whiteTextStyle().copyWith(color: kPrimaryColor,fontSize: 12,fontWeight: FontWeight.w400),))
-                        ],
-                      ),
+                      DetailRowWidget(title: "Phone  Number", detail: "+91712351276"),
+                      DetailRowWidget(title: "Email", detail: "Maliele@gmail.com"),
+                      DetailRowWidget(title: "Name", detail: "Yasir Nawaz"),
+                      DetailRowWidget(title: "Registration Date", detail: "2024-02-10"),
                     ],
                   ),
                 ),
-              if(controller.selectedTab.value == 'Compliance Detail')
-                Padding(
+              if(controller.selectedTab.value == 'Orders')
+                Obx(() => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Column(
                     spacing: 6,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DetailRowWidget(title: "Account Verification Status", detail: "Confirmed"),
-                      DetailRowWidget(title: "Completed Order", detail: "44"),
-                      DetailRowWidget(title: "Missed Order", detail: "2"),
-                      DetailRowWidget(title: "Total Previous Withdrawls", detail: "44"),
-                      DetailRowWidget(title: "Any previous payment issues", detail: "No"),
-                    ],
-                  ),
-                ),
-              if(controller.selectedTab.value == 'Reviews')
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Column(
-                    spacing: 6,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListView.builder(
-                        padding: EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 44,
-                                      width: 44,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(100),
+                      if(controller.showDetail.value == false) ...[
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(
+                                        width: 1,
+                                        color: kGreyShade8Color
+                                    )
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                SizedBox(height: 3,),
+                                                Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                                SizedBox(height: 9,),
+                                                Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                SizedBox(height: 3,),
+                                                Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(width: 45,),
+                                          Expanded(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  height: 42,
+                                                  width: 42,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(100),
+                                                  ),
+                                                  child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(100),
+                                                      child: Image.asset(kAvatar2,fit: BoxFit.cover,)),
+                                                ),
+                                                SizedBox(height: 7,),
+                                                Text("James Williams",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w700,fontSize: 12),),
+                                                SizedBox(height: 3,),
+                                                Row(
+                                                  children: [
+                                                    RatingBarIndicator(
+                                                      rating: controller.rating.value,
+                                                      itemBuilder: (context, index) => Icon(
+                                                        Icons.star_rounded,
+                                                        color: kAmberColor,
+                                                      ),
+                                                      itemCount: 1,
+                                                      itemSize: 18,
+                                                      unratedColor: Colors.grey[300],
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "4.8",
+                                                      style: AppStyles.blackTextStyle()
+                                                          .copyWith(
+                                                        fontSize: 11,
+                                                        fontWeight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "(60 Reviews)",
+                                                      style: AppStyles.greyTextStyle()
+                                                          .copyWith(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: kGreyShade10Color
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(100),
-                                          child: Image.asset(kAvatar2,fit: BoxFit.cover,)),
-                                    ),
-                                    SizedBox(
-                                      width: 13,
-                                    ),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Haylie Aminoff",
-                                          style: AppStyles.blackTextStyle()
-                                              .copyWith(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                              color: kDarkBlueColor
+                                      SizedBox(height: 12,),
+                                      CustomButton(title: "View Details", onTap: (){
+                                        controller.showDetail.value = true;
+                                      },color: kWhiteColor,borderColor: kPrimaryColor,textColor: kGreyShade9Color,textSize: 13,fontWeight: FontWeight.w400,height: 36,)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 45,),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(
+                                        width: 1,
+                                        color: kGreyShade8Color
+                                    )
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                SizedBox(height: 3,),
+                                                Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                                SizedBox(height: 9,),
+                                                Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                SizedBox(height: 3,),
+                                                Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          "32 minutes ago",
-                                          style: AppStyles.blackTextStyle()
-                                              .copyWith(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              color: kGreyShade7Color
+                                          SizedBox(width: 45,),
+                                          Expanded(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  height: 42,
+                                                  width: 42,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(100),
+                                                  ),
+                                                  child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(100),
+                                                      child: Image.asset(kAvatar2,fit: BoxFit.cover,)),
+                                                ),
+                                                SizedBox(height: 7,),
+                                                Text("James Williams",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w700,fontSize: 12),),
+                                                SizedBox(height: 3,),
+                                                Row(
+                                                  children: [
+                                                    RatingBarIndicator(
+                                                      rating: controller.rating.value,
+                                                      itemBuilder: (context, index) => Icon(
+                                                        Icons.star_rounded,
+                                                        color: kAmberColor,
+                                                      ),
+                                                      itemCount: 1,
+                                                      itemSize: 18,
+                                                      unratedColor: Colors.grey[300],
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "4.8",
+                                                      style: AppStyles.blackTextStyle()
+                                                          .copyWith(
+                                                        fontSize: 11,
+                                                        fontWeight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      "(60 Reviews)",
+                                                      style: AppStyles.greyTextStyle()
+                                                          .copyWith(
+                                                          fontSize: 10,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: kGreyShade10Color
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
+                                      SizedBox(height: 12,),
+                                      CustomButton(title: "View Details", onTap: (){
+                                        controller.showDetail.value = true;
+                                      },color: kWhiteColor,borderColor: kPrimaryColor,textColor: kGreyShade9Color,textSize: 13,fontWeight: FontWeight.w400,height: 36,)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                      if(controller.showDetail.value) ...[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: 186,
+                              width: double.infinity,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: GoogleMap(
+                                  initialCameraPosition: CameraPosition(
+                                    target: LatLng(37.7749, -122.4194),
+                                    zoom: 14,
+                                  ),
+                                  zoomControlsEnabled: false,
+                                  myLocationButtonEnabled: false,
+                                  onMapCreated: (GoogleMapController controller) {
+                        
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 16,),
+                            DetailRowWidget(title: "Order ID", detail: "1712351276"),
+                            SizedBox(height: 6,),
+                            DetailRowWidget(title: "Order Status", detail: "Out for Delivery"),
+                            SizedBox(height: 6,),
+                            DetailRowWidget(title: "Payment Status", detail: "Paid"),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Divider(
+                              height: 0.4,
+                              thickness: 0.4,
+                              color: kGreyShade5Color,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Customer Detail:",
+                                      style: AppStyles.blackTextStyle()
+                                          .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
                                     ),
-                                    Spacer(),
+                                    SizedBox(height: 8,),
                                     Row(
                                       children: [
-                                        Text(
-                                          "4.0",
-                                          style: AppStyles.blackTextStyle()
-                                              .copyWith(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w500,
-                                              color: kDarkBlueColor
-                                          ),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(100),
+                                          child: Image.asset(kAvatar2,height: 50,width: 50,),
                                         ),
                                         SizedBox(
-                                          width: 5,
+                                          width: 17,
                                         ),
-                                        RatingBarIndicator(
-                                          rating: controller.rating.value,
-                                          itemBuilder: (context, index) => Icon(
-                                            Icons.star_rounded,
-                                            color: kAmberColor,
-                                          ),
-                                          itemCount: 5,
-                                          itemSize: 18,
-                                          unratedColor: Colors.grey[300],
-                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "James Williams",
+                                              style: AppStyles.blackTextStyle()
+                                                  .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(height: 4,),
+                                            Row(
+                                              children: [
+                                                Image.asset(kStarIcon,height: 12,width: 12,),
+                                                SizedBox(width: 6,),
+                                                Text(
+                                                  "4.8",
+                                                  style: AppStyles.blackTextStyle()
+                                                      .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
+                                                ),
+                                                Text(
+                                                  "(60 Reviews)",
+                                                  style: AppStyles.greyTextStyle()
+                                                      .copyWith(fontSize: 10, fontWeight: FontWeight.w600,color: kGreyShade5Color),
+                                                ),
+                                                SizedBox(width: 6,),
+                                              ],
+                                            )
+                                          ],
+                                        )
                                       ],
-                                    ),
+                                    )
                                   ],
                                 ),
-                                SizedBox(height: 12,),
-                                Text(
-                                  "Lorem ipsum dolor sit amet, consetetur sadi sspscing elitr, sed diam nonumy",
-                                  style: AppStyles.blackTextStyle()
-                                      .copyWith(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w300,
-                                  ),
+                                SizedBox(width: 121,),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Customer Detail:",
+                                      style: AppStyles.blackTextStyle()
+                                          .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
+                                    ),
+                                    SizedBox(height: 8,),
+                                    Row(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(100),
+                                          child: Image.asset(kAvatar2,height: 50,width: 50,),
+                                        ),
+                                        SizedBox(
+                                          width: 17,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "James Williams",
+                                              style: AppStyles.blackTextStyle()
+                                                  .copyWith(fontSize: 12, fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(height: 4,),
+                                            Row(
+                                              children: [
+                                                Image.asset(kStarIcon,height: 12,width: 12,),
+                                                SizedBox(width: 6,),
+                                                Text(
+                                                  "4.8",
+                                                  style: AppStyles.blackTextStyle()
+                                                      .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
+                                                ),
+                                                Text(
+                                                  "(60 Reviews)",
+                                                  style: AppStyles.greyTextStyle()
+                                                      .copyWith(fontSize: 10, fontWeight: FontWeight.w600,color: kGreyShade5Color),
+                                                ),
+                                                SizedBox(width: 6,),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
                                 ),
                               ],
                             ),
-                          );
-                        },
-                      )
+
+                          ],
+                        )
+                      ],
                     ],
                   ),
-                ),
-              if(controller.selectedTab.value == 'Revenue Details')
+                ),),
+              if(controller.selectedTab.value == 'Application Feedback')
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Column(
                     spacing: 6,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DetailRowWidget(title: "14/06/2021, 14:24 AM:", detail: "\$100",isEmployeePage: true,),
-                      DetailRowWidget(title: "14/06/2021, 14:24 AM:", detail: "\$100",isEmployeePage: true,),
-                      DetailRowWidget(title: "14/06/2021, 14:24 AM:", detail: "\$100",isEmployeePage: true,),
-                      DetailRowWidget(title: "14/06/2021, 14:24 AM:", detail: "\$100",isEmployeePage: true,),
+                      DetailRowWidget(title: "Rating", detail: "4.5"),
+                      DetailRowWidget(title: "Review", detail: "Lorem ipsum dolor sit amet, consetetur sadi sspscing elitr, sed diam \nnonumy"),
+                    ],
+                  ),
+                ),
+              if(controller.selectedTab.value == 'View Support Chat')
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: Column(
+                    spacing: 6,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DetailRowWidget(title: "Rating", detail: "4.5"),
+                      DetailRowWidget(title: "Review", detail: "Lorem ipsum dolor sit amet, consetetur sadi sspscing elitr, sed diam \nnonumy"),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Divider(
+                        height: 0.4,
+                        thickness: 0.4,
+                        color: kGreyShade5Color,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        // width: 329,
+                        child: ListView.builder(
+                          itemCount: controller.messages.length,
+                          shrinkWrap: true,
+                          // padding: EdgeInsets.all(0),
+                          itemBuilder: (context, index) {
+                            final message = controller.messages[index];
+                            final isMe = message['isMe'] as bool;
+                            final text = message['text'] as String;
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0),
+                            child: Align(
+                          alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 12),
+                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                              decoration: BoxDecoration(
+                                color: isMe ? kPrimaryColor.withOpacity(0.1) : kWhiteColor2,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(16),
+                                  topRight: Radius.circular(16),
+                                  bottomLeft: Radius.circular(isMe ? 16 : 0),
+                                  bottomRight: Radius.circular(isMe ? 0 : 16),
+                                ),
+                              ),
+                              constraints: BoxConstraints(maxWidth: 329),
+                              child: Text(
+                                text,
+                                style: AppStyles.blackTextStyle().copyWith(fontSize: 16),
+                              ),
+                            ),
+                          )
+                          );
+                        },),
+                      ),
                     ],
                   ),
                 ),
@@ -308,23 +585,133 @@ class UserScreen extends GetView<UserController> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomButton(title: "Cancel", onTap: (){
-                      Get.back();
-                    },borderColor: kBorderColor2,color: kWhiteColor,height: 40,width: 79,textSize: 14,fontWeight: FontWeight.w600,textColor: kDarkBlueColor,),
-                    CustomButton(title: "Apply Deduction", onTap: (){
-                      Get.back();
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return approveDialogue(context,isApplyDeduction: true);
+                    if(controller.showDetail.value) ...[
+                      CustomButton(
+                        title: "Cancel",
+                        height: 40,
+                        onTap: () {
+                          controller.showDetail.value = false;
                         },
-                      );
-                    },height: 40,width: 151,textSize: 14,fontWeight: FontWeight.w600,),
+                        width: 75,
+                        textColor: kBlackColor,
+                        color: kWhiteColor,
+                        borderColor: kBorderColor,
+                        textSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      CustomButton(
+                        title: "View Customer Feedback",
+                        height: 40,
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return viewTextDialogue(context);
+                            },
+                          );
+                        },
+                        width: 212,
+                        textSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      CustomButton(
+                        title: "Hide Details",
+                        height: 40,
+                        onTap: () {
+                          controller.showDetail.value = false;
+                        },
+                        width: 114,
+                        textSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                    if(controller.showDetail.value == false) ...[
+                      CustomButton(title: "Cancel", onTap: (){
+                        Get.back();
+                      },borderColor: kBorderColor2,color: kWhiteColor,height: 40,width: 79,textSize: 14,fontWeight: FontWeight.w600,textColor: kDarkBlueColor,),
+                      CustomButton(title: "De-activate User", onTap: (){
+                        Get.back();
+
+                      },height: 40,width: 151,textSize: 14,fontWeight: FontWeight.w600,),
+                    ],
                   ],
                 ),
               )
             ],
           ),),
+        ),
+      ),
+    );
+  }
+
+  Widget viewTextDialogue(BuildContext context) {
+    return Dialog(
+      backgroundColor: kWhiteColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: SizedBox(
+        width: 373,
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            spacing: 12,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: SvgPicture.asset(kCloseIcon, height: 16, width: 16),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(kAvatar2,height: 44,width: 44,)),
+                  SizedBox(width: 13,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Haylie Aminoff",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w600,fontSize: 15),),
+                      Text("32 minutes ago",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 10,color: kGreyShade9Color),)
+                    ],
+                  ),
+                  Spacer(),
+                  Row(
+                    children: [
+                      Text(
+                        "4.8",
+                        style: AppStyles.blackTextStyle()
+                            .copyWith(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      RatingBarIndicator(
+                        rating: controller.rating.value,
+                        itemBuilder: (context, index) => Icon(
+                          Icons.star_rounded,
+                          color: kAmberColor,
+                        ),
+                        itemCount: 5,
+                        itemSize: 18,
+                        unratedColor: Colors.grey[300],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              Text("Lorem ipsum dolor sit amet, consetetur sadi sspscing elitr, sed diam nonumy",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 12),),
+            ],
+          ),
         ),
       ),
     );

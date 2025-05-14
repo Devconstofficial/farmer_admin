@@ -1,3 +1,4 @@
+import 'package:farmer_admin/custom_widgets/user_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import '../../../utils/app_images.dart';
 import '../../../utils/app_styles.dart';
 import '../../custom_widgets/approve_dialoge.dart';
 import '../../custom_widgets/custom_button.dart';
+import '../../custom_widgets/custom_textfield.dart';
 import '../../custom_widgets/dashboard_container.dart';
 import '../../custom_widgets/delete_dialog.dart';
 import '../../custom_widgets/detail_row.dart';
@@ -17,6 +19,310 @@ import 'controller/collection_controller.dart';
 
 class CollectionScreen extends GetView<CollectionController> {
   const CollectionScreen({super.key});
+
+  Widget detailsDialogue(BuildContext context) {
+    return Dialog(
+      backgroundColor: kWhiteColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: SizedBox(
+        width: 693,
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 46,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: kGreyShade5Color, width: 0.4),
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Detail Overview",
+                      style: AppStyles.blackTextStyle().copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: kBlackColor,
+                      ),
+                    ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: SvgPicture.asset(
+                        kCloseIcon,
+                        height: 16,
+                        width: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    UserCard(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showChatDialogue(context);
+                          },
+                        );
+                      },
+                    ),
+                    SizedBox(width: 15),
+                    UserCard(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showChatDialogue(context);
+                          },
+                        );
+                      },
+                    ),
+                    SizedBox(width: 15),
+                    UserCard(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showChatDialogue(context);
+                          },
+                        );
+                      },
+                    ),
+                    SizedBox(width: 15),
+                    UserCard(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showChatDialogue(context);
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget showChatDialogue(BuildContext context) {
+    return Dialog(
+      backgroundColor: kWhiteColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: SizedBox(
+        width: 693,
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 46,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: kGreyShade5Color, width: 0.4),
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Chat Overview",
+                      style: AppStyles.blackTextStyle().copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: kBlackColor,
+                      ),
+                    ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: SvgPicture.asset(
+                        kCloseIcon,
+                        height: 16,
+                        width: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 24),
+              SizedBox(
+                // width: 329,
+                child: ListView.builder(
+                  itemCount: controller.messages.length,
+                  shrinkWrap: true,
+                  // padding: EdgeInsets.all(0),
+                  itemBuilder: (context, index) {
+                    final message = controller.messages[index];
+                    final isMe = message['isMe'] as bool;
+                    final text = message['text'] as String;
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Align(
+                        alignment:
+                            isMe ? Alignment.centerRight : Alignment.centerLeft,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            color:
+                                isMe
+                                    ? kPrimaryColor.withOpacity(0.1)
+                                    : kWhiteColor2,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                              bottomLeft: Radius.circular(isMe ? 16 : 0),
+                              bottomRight: Radius.circular(isMe ? 0 : 16),
+                            ),
+                          ),
+                          constraints: BoxConstraints(maxWidth: 329),
+                          child: Text(
+                            text,
+                            style: AppStyles.blackTextStyle().copyWith(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget addCollectionDialogue(BuildContext context) {
+    return Dialog(
+      backgroundColor: kWhiteColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: SizedBox(
+        width: 400,
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            spacing: 32,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: SvgPicture.asset(kCloseIcon, height: 16, width: 16),
+                  ),
+                ],
+              ),
+              Column(
+                spacing: 8,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Name",
+                        style: AppStyles.blackTextStyle().copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      CustomTextField(hintText: "name", height: 40),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Location",
+                        style: AppStyles.blackTextStyle().copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      CustomTextField(hintText: "location", height: 40),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Delivery Fee-max (\$USD) ",
+                        style: AppStyles.blackTextStyle().copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      CustomTextField(hintText: "60", height: 40),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomButton(
+                    title: "Cancel",
+                    onTap: () {
+                      Get.back();
+                    },
+                    borderColor: kBorderColor2,
+                    color: kWhiteColor,
+                    height: 40,
+                    width: 79,
+                    textSize: 14,
+                    fontWeight: FontWeight.w600,
+                    textColor: kDarkBlueColor,
+                  ),
+
+                  CustomButton(
+                    title: "Add Collection Point",
+                    onTap: () {
+                      Get.back();
+                    },
+                    height: 40,
+                    width: 172,
+                    textSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,18 +345,21 @@ class CollectionScreen extends GetView<CollectionController> {
                   children: [
                     Container(
                       height: 80,
-                      decoration: BoxDecoration(
-                        color: kWhiteColor,
-                      ),
+                      decoration: BoxDecoration(color: kWhiteColor),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 32),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 32,
+                        ),
                         child: Row(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "Collection Points",
                               style: AppStyles.blackTextStyle().copyWith(
-                                  fontSize: 20.sp, fontWeight: FontWeight.w600),
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                             Spacer(),
                             Container(
@@ -71,17 +380,17 @@ class CollectionScreen extends GetView<CollectionController> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 22,),
+                            SizedBox(width: 22),
                             Container(
                               decoration: BoxDecoration(
-                                  borderRadius: AppStyles.customBorder16
+                                borderRadius: AppStyles.customBorder16,
                               ),
                               child: ClipRRect(
                                 borderRadius: AppStyles.customBorder16,
-                                child: Image.asset(kAvatar,fit: BoxFit.cover,),
+                                child: Image.asset(kAvatar, fit: BoxFit.cover),
                               ),
                             ),
-                            SizedBox(width: 18,),
+                            SizedBox(width: 18),
                             Column(
                               spacing: 3,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -89,19 +398,30 @@ class CollectionScreen extends GetView<CollectionController> {
                                 Text(
                                   "Musfiq",
                                   style: AppStyles.blackTextStyle().copyWith(
-                                      fontSize: 14.sp, fontWeight: FontWeight.w500,color: kBlueColor),
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: kBlueColor,
+                                  ),
                                 ),
                                 Text(
                                   "Admin",
                                   style: AppStyles.greyTextStyle().copyWith(
-                                      fontSize: 12.sp, fontWeight: FontWeight.w400,color: kGreyShade7Color),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: kGreyShade7Color,
+                                  ),
                                 ),
                               ],
                             ),
-                            SizedBox(width: 20,),
+                            SizedBox(width: 20),
                             InkWell(
-                                onTap: (){},
-                                child: Icon(Icons.keyboard_arrow_down_rounded,size: 15,color: kBlueColor,))
+                              onTap: () {},
+                              child: Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                size: 15,
+                                color: kBlueColor,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -114,148 +434,159 @@ class CollectionScreen extends GetView<CollectionController> {
                           Row(
                             children: [
                               GestureDetector(
-                                  onTap: () {
-
-                                  },
-                                  child: DashboardContainer(
-                                    width: 219,
-                                    height: 112,
-                                    color: kPrimaryColor,
-                                    title: "Total Collection Points",
-                                    totalNumber: '\$ 1200',
-
-                                  )),
+                                onTap: () {},
+                                child: DashboardContainer(
+                                  width: 219,
+                                  height: 112,
+                                  color: kPrimaryColor,
+                                  title: "Total Collection Points",
+                                  totalNumber: '\$ 1200',
+                                ),
+                              ),
                               Spacer(),
-                              CustomButton(title: "Generate Report", onTap: (){},width: 198.w,textSize: 16.sp,fontWeight: FontWeight.w600,)
+                              CustomButton(
+                                title: "Add Collection Point",
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder:
+                                        (context) =>
+                                            addCollectionDialogue(context),
+                                  );
+                                },
+                                width: 229.w,
+                                textSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ],
                           ),
-                          SizedBox(
-                            height: 32.h,
-                          ),
-                          Obx(() => Container(
-                            width: width,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(14.r),
-                                topRight: Radius.circular(14.r),
+                          SizedBox(height: 32.h),
+                          Obx(
+                            () => Container(
+                              width: width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(14.r),
+                                  topRight: Radius.circular(14.r),
+                                ),
+                                border: Border.all(
+                                  color: kGreyColor,
+                                  width: 0.3,
+                                ),
                               ),
-                              border: Border.all(
-                                  color: kGreyColor, width: 0.3),
-                            ),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  height: 49,
-                                  decoration: BoxDecoration(
-                                    color: kPrimaryColor,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(14),
-                                      topRight: Radius.circular(14),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    height: 49,
+                                    decoration: BoxDecoration(
+                                      color: kPrimaryColor,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(14),
+                                        topRight: Radius.circular(14),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: width,
-                                  child: DataTable(
-                                    columnSpacing: 0,
-                                    headingRowHeight: 49,
-                                    columns: [
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Collection Point ID",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                  SizedBox(
+                                    width: width,
+                                    child: DataTable(
+                                      columnSpacing: 0,
+                                      headingRowHeight: 49,
+                                      columns: [
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Collection Point ID",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 14.sp,
+                                                  ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Name",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Name",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 14.sp,
+                                                  ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Address",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Address",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 14.sp,
+                                                  ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      DataColumn(
-                                        label: Flexible(
-                                          child: Text(
-                                            "Assigned Employee",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                        DataColumn(
+                                          label: Flexible(
+                                            child: Text(
+                                              "Assigned Employee",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 14.sp,
+                                                  ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      DataColumn(
-                                        headingRowAlignment:
-                                        MainAxisAlignment.center,
-                                        label: Flexible(
-                                          child: Text(
-                                            "Actions",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style:
-                                            AppStyles.whiteTextStyle()
-                                                .copyWith(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 14.sp,
+                                        DataColumn(
+                                          headingRowAlignment:
+                                              MainAxisAlignment.center,
+                                          label: Flexible(
+                                            child: Text(
+                                              "Actions",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 14.sp,
+                                                  ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                    rows: controller.currentPageUsers
-                                        .map((user) => _buildDataRow(
-                                        user['id']!,
-                                        user['name']!,
-                                        user['Address']!,
-                                        user['assignedEmp']!,
-                                        context))
-                                        .toList(),
-                                    dataRowMaxHeight: 65,
+                                      ],
+                                      rows:
+                                          controller.currentPageUsers
+                                              .map(
+                                                (user) => _buildDataRow(
+                                                  user['id']!,
+                                                  user['name']!,
+                                                  user['Address']!,
+                                                  user['assignedEmp']!,
+                                                  context,
+                                                ),
+                                              )
+                                              .toList(),
+                                      dataRowMaxHeight: 65,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),),
-
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -266,44 +597,65 @@ class CollectionScreen extends GetView<CollectionController> {
     );
   }
 
-
-  DataRow _buildDataRow(String id, String name, String address, String assignedEmp, context) {
-
+  DataRow _buildDataRow(
+    String id,
+    String name,
+    String address,
+    String assignedEmp,
+    context,
+  ) {
     return DataRow(
       cells: [
-        DataCell(Text(
-          id,
-          textAlign: TextAlign.center,
-          style: AppStyles.blackTextStyle()
-              .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-        )),
-        DataCell(Text(
-          name,
-          textAlign: TextAlign.center,
-          style: AppStyles.blackTextStyle()
-              .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-        )),
-        DataCell(Text(
-          address,
-          textAlign: TextAlign.center,
-          style: AppStyles.blackTextStyle()
-              .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-        )),
-        DataCell(Text(
-          assignedEmp,
-          textAlign: TextAlign.center,
-          style: AppStyles.blackTextStyle()
-              .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-        )),
+        DataCell(
+          Text(
+            id,
+            textAlign: TextAlign.center,
+            style: AppStyles.blackTextStyle().copyWith(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            name,
+            textAlign: TextAlign.center,
+            style: AppStyles.blackTextStyle().copyWith(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            address,
+            textAlign: TextAlign.center,
+            style: AppStyles.blackTextStyle().copyWith(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            assignedEmp,
+            textAlign: TextAlign.center,
+            style: AppStyles.blackTextStyle().copyWith(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
         DataCell(
           Center(
             child: Container(
               height: 32,
               width: 96.w,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: kCreamColor,
-                  border: Border.all(color: kGreyShade5Color, width: 0.4)),
+                borderRadius: BorderRadius.circular(8),
+                color: kCreamColor,
+                border: Border.all(color: kGreyShade5Color, width: 0.4),
+              ),
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -326,20 +678,17 @@ class CollectionScreen extends GetView<CollectionController> {
                         ),
                       ),
                     ),
-                    Container(
-                      width: 0.4,
-                      color: kGreyShade5Color,
-                    ),
+                    Container(width: 0.4, color: kGreyShade5Color),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) {
-                          //     return detailsDialogue(context);
-                          //   },
-                          // );
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return detailsDialogue(context);
+                            },
+                          );
                         },
                         child: SvgPicture.asset(
                           kEyeIcon,
@@ -357,5 +706,4 @@ class CollectionScreen extends GetView<CollectionController> {
       ],
     );
   }
-
 }
