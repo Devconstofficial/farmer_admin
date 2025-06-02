@@ -35,3 +35,4 @@ String kAvatar = "$basePath/avatar.png";
 String kAvatar2 = "$basePath/avatar2.png";
 String kPolicyImage = "$basePath/policyImage.svg";
 String kProductImage = "$basePath/productImage.png";
+String kAuthFarmerImage = "$basePath/auth_farmer_image.jpg";

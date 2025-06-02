@@ -2,6 +2,10 @@ import 'package:farmer_admin/screens/customer_service/support_screen.dart';
 import 'package:farmer_admin/screens/distribution_employe/distribution_employee.dart';
 import 'package:farmer_admin/utils/screen_bindings.dart';
 import 'package:get/get.dart';
+import '../screens/auth/auth_screen.dart';
+import '../screens/auth/send_otp_screen.dart';
+import '../screens/auth/set_new_pass.dart';
+import '../screens/auth/verify_otp_screen.dart';
 import '../screens/chat_screen/chat_screen.dart';
 import '../screens/collection_points_screen/collection_screen.dart';
 import '../screens/dashboard_screen/dashboard_screen.dart';
@@ -24,6 +28,26 @@ class RouteGenerator {
       GetPage(name: kCollectionScreenRoute, page: () => CollectionScreen(), binding: ScreenBindings(),),
       GetPage(name: kDistributionScreenRoute, page: () => DistributionScreen(), binding: ScreenBindings(),),
       GetPage(name: kTermsScreenRoute, page: () => TermsScreen(), binding: ScreenBindings(),),
+      GetPage(
+        name: kAuthScreenRoute,
+        page: () => const AuthScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kSendOtpScreenRoute,
+        page: () => const SendOtpScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kVerifyScreenRoute,
+        page: () => const VerifyOtpScreen(),
+        binding: ScreenBindings(),
+      ),
+      GetPage(
+        name: kSetNewPassScreenRoute,
+        page: () => const SetNewPassScreen(),
+        binding: ScreenBindings(),
+      ),
     ];
   }
 }
