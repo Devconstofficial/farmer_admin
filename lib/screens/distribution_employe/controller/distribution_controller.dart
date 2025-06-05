@@ -1,16 +1,20 @@
-import 'package:get/get.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 
 class DistributionController extends GetxController {
   var selectedUserType = ''.obs;
   RxDouble rating = 5.0.obs;
-  var selectedTab = 'Detail Overview'.obs;
+  var selectedTab = "kDetailOverview".tr().obs;
   var showDetail = false.obs;
-  List<String> options = ["Customer", "Supplier"];
+  List<String> options = ["kCustomer".tr(), "kSupplier".tr()];
   RxString selectedOption = "".obs;
-  List<String> employee = ["Employee Performance", "Request Approval"];
-  RxString selectedEmployee = "Employee Performance".obs;
+  List<String> employee = ["kEmployeePerformance".tr(), "kRequestApproval".tr()];
+  RxString selectedEmployee = "kEmployeePerformance".tr().obs;
 
   void selectEmployeeOption(String option) {
     selectedEmployee.value = option;

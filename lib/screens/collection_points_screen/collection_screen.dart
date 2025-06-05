@@ -1,9 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:farmer_admin/custom_widgets/user_card.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 import '../../../utils/app_styles.dart';
@@ -43,7 +48,7 @@ class CollectionScreen extends GetView<CollectionController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Detail Overview",
+                      "kDetailOverview".tr(),
                       style: AppStyles.blackTextStyle().copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -145,7 +150,7 @@ class CollectionScreen extends GetView<CollectionController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Chat Overview",
+                      "kChatOverview".tr(),
                       style: AppStyles.blackTextStyle().copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -251,33 +256,33 @@ class CollectionScreen extends GetView<CollectionController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Name",
+                        "kName".tr(),
                         style: AppStyles.blackTextStyle().copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      CustomTextField(hintText: "name", height: 40),
+                      CustomTextField(hintText: "kName".tr(), height: 40),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Location",
+                        "kLocation".tr(),
                         style: AppStyles.blackTextStyle().copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      CustomTextField(hintText: "location", height: 40),
+                      CustomTextField(hintText: "kLocation".tr(), height: 40),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Delivery Fee-max (\$USD) ",
+                        "kDeliveryFeeMax".tr(),
                         style: AppStyles.blackTextStyle().copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -292,7 +297,7 @@ class CollectionScreen extends GetView<CollectionController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomButton(
-                    title: "Cancel",
+                    title: "kCancel".tr(),
                     onTap: () {
                       Get.back();
                     },
@@ -306,7 +311,7 @@ class CollectionScreen extends GetView<CollectionController> {
                   ),
 
                   CustomButton(
-                    title: "Add Collection Point",
+                    title: "kAddCollectionPoint".tr(),
                     onTap: () {
                       Get.back();
                     },
@@ -355,7 +360,7 @@ class CollectionScreen extends GetView<CollectionController> {
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Collection Points",
+                              "kCollectionPoint".tr(),
                               style: AppStyles.blackTextStyle().copyWith(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
@@ -404,7 +409,7 @@ class CollectionScreen extends GetView<CollectionController> {
                                   ),
                                 ),
                                 Text(
-                                  "Admin",
+                                  "kAdmin".tr(),
                                   style: AppStyles.greyTextStyle().copyWith(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
@@ -439,13 +444,13 @@ class CollectionScreen extends GetView<CollectionController> {
                                   width: 219,
                                   height: 112,
                                   color: kPrimaryColor,
-                                  title: "Total Collection Points",
+                                  title: "kTotalCollectionPoints".tr(),
                                   totalNumber: '\$ 1200',
                                 ),
                               ),
                               Spacer(),
                               CustomButton(
-                                title: "Add Collection Point",
+                                title: "kAddCollectionPoint".tr(),
                                 onTap: () {
                                   showDialog(
                                     context: context,
@@ -495,7 +500,7 @@ class CollectionScreen extends GetView<CollectionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Collection Point ID",
+                                              "kCollectionPointId".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: AppStyles.whiteTextStyle()
@@ -509,7 +514,7 @@ class CollectionScreen extends GetView<CollectionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Name",
+                                              "kName".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: AppStyles.whiteTextStyle()
@@ -523,7 +528,7 @@ class CollectionScreen extends GetView<CollectionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Address",
+                                              "kAddress".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: AppStyles.whiteTextStyle()
@@ -537,7 +542,7 @@ class CollectionScreen extends GetView<CollectionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Assigned Employee",
+                                              "kAssignedEmployee".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: AppStyles.whiteTextStyle()
@@ -553,7 +558,7 @@ class CollectionScreen extends GetView<CollectionController> {
                                               MainAxisAlignment.center,
                                           label: Flexible(
                                             child: Text(
-                                              "Actions",
+                                              "kActions".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: AppStyles.whiteTextStyle()

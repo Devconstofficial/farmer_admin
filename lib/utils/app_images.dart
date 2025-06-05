@@ -22,6 +22,7 @@ String kSendIcon = "$basePathIcons/sendIcon.png";
 String kStarIcon = "$basePathIcons/star.png";
 String kLocationIcon = "$basePathIcons/location.png";
 String kSupportIcon = "$basePathIcons/support.svg";
+String kCrossCircleIcon = "$basePathIcons/crossCircle.png";
 
 
 

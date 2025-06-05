@@ -1,8 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:farmer_admin/custom_widgets/custom_textfield.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 import '../../../utils/app_styles.dart';
@@ -15,7 +20,7 @@ import 'controller/dashboard_controller.dart';
 import 'package:fl_chart/fl_chart.dart' as fl;
 
 class DashboardScreen extends GetView<DashboardController> {
-  DashboardScreen({super.key});
+  const DashboardScreen({super.key});
 
   Widget viewTextDialogue(BuildContext context) {
     return Dialog(
@@ -48,7 +53,7 @@ class DashboardScreen extends GetView<DashboardController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Supplier Fee (\$USD)",
+                        "kSupplierFee".tr(),
                         style: AppStyles.blackTextStyle().copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -61,7 +66,7 @@ class DashboardScreen extends GetView<DashboardController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Government Fee (\$USD) ",
+                        "kGovernmentFee".tr(),
                         style: AppStyles.blackTextStyle().copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -74,7 +79,7 @@ class DashboardScreen extends GetView<DashboardController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Delivery Fee-min (\$USD)",
+                        "kDeliveryFeeMin".tr(),
                         style: AppStyles.blackTextStyle().copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -87,7 +92,7 @@ class DashboardScreen extends GetView<DashboardController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Delivery Fee-max (\$USD) ",
+                        "kDeliveryFeeMax".tr(),
                         style: AppStyles.blackTextStyle().copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -102,7 +107,7 @@ class DashboardScreen extends GetView<DashboardController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomButton(
-                    title: "Cancel",
+                    title: "kCancel".tr(),
                     onTap: () {
                       Get.back();
                     },
@@ -116,7 +121,7 @@ class DashboardScreen extends GetView<DashboardController> {
                   ),
 
                   CustomButton(
-                    title: "Add New",
+                    title: "kAddNew".tr(),
                     onTap: () {
                       Get.back();
                     },
@@ -126,7 +131,7 @@ class DashboardScreen extends GetView<DashboardController> {
                     fontWeight: FontWeight.w600,
                   ),
                   CustomButton(
-                    title: "update",
+                    title: "kUpdate".tr(),
                     onTap: () {
                       Get.back();
                     },
@@ -175,7 +180,7 @@ class DashboardScreen extends GetView<DashboardController> {
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Dashboard",
+                              "kDashboard".tr(),
                               style: AppStyles.blackTextStyle().copyWith(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
@@ -224,7 +229,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                   ),
                                 ),
                                 Text(
-                                  "Admin",
+                                  "kAdmin".tr(),
                                   style: AppStyles.greyTextStyle().copyWith(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
@@ -262,7 +267,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                   height: 112,
                                   color: kPrimaryColor,
                                   percent: '+11.01%',
-                                  title: "Total Users",
+                                  title: "kTotalUsers".tr(),
                                   totalNumber: '1200',
                                   icon: kDoubleUserIcon,
                                   showIcon: true,
@@ -278,7 +283,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                   height: 112,
                                   color: kDarkPrimaryColor,
                                   percent: '-0.03%',
-                                  title: "Total Earnings",
+                                  title: "kTotalEarnings".tr(),
                                   totalNumber: '\$120',
                                   icon: kCashIcon,
                                   showIcon: true,
@@ -293,7 +298,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                   width: 202,
                                   height: 112,
                                   color: kPrimaryColor2,
-                                  title: "Support Chats",
+                                  title: "kSupportChats".tr(),
                                   totalNumber: '\$20',
                                   icon: kSupportIcon,
                                   showIcon: true,
@@ -309,7 +314,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                   height: 112,
                                   color: kMiddlePrimaryColor,
                                   percent: '+15.03',
-                                  title: "Total Orders",
+                                  title: "kTotalOrders".tr(),
                                   totalNumber: '1200',
                                   icon: kCartIcon,
                                   showIcon: true,
@@ -334,7 +339,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                   Row(
                                     children: [
                                       Text(
-                                        'Revenue',
+                                        "kRevenue".tr(),
                                         style: AppStyles.blackTextStyle()
                                             .copyWith(
                                               fontSize: 20,
@@ -348,8 +353,8 @@ class DashboardScreen extends GetView<DashboardController> {
                                                   .selectedOption
                                                   .value
                                                   .isEmpty
-                                              ? "Last 7 Days"
-                                              : "Last ${controller.selectedOption.value}",
+                                              ? "kLast7Days".tr()
+                                              : "${"kLast".tr()} ${controller.selectedOption.value}",
                                           style: AppStyles.blackTextStyle()
                                               .copyWith(
                                                 fontSize: 14.sp,
@@ -433,7 +438,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                       RotatedBox(
                                         quarterTurns: 3,
                                         child: Text(
-                                          'Revenue Amount',
+                                          "kRevenueAmount".tr(),
                                           style: AppStyles.greyTextStyle()
                                               .copyWith(
                                                 fontSize: 15,
@@ -594,7 +599,7 @@ class DashboardScreen extends GetView<DashboardController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CustomButton(
-                                title: "View Tax & Fee",
+                                title: "kViewTaxAndFee".tr(),
                                 onTap: () {
                                   showDialog(
                                     context: context,

@@ -1,8 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 import '../../../utils/app_styles.dart';
@@ -37,7 +40,7 @@ class TermsScreen extends GetView<TermsController> {
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Users",
+                            "kUsers".tr(),
                             style: AppStyles.blackTextStyle().copyWith(
                                 fontSize: 20.sp, fontWeight: FontWeight.w600),
                           ),
@@ -81,7 +84,7 @@ class TermsScreen extends GetView<TermsController> {
                                     fontSize: 14.sp, fontWeight: FontWeight.w500,color: kBlueColor),
                               ),
                               Text(
-                                "Admin",
+                                "kAdmin".tr(),
                                 style: AppStyles.greyTextStyle().copyWith(
                                     fontSize: 12.sp, fontWeight: FontWeight.w400,color: kGreyShade7Color),
                               ),
@@ -122,7 +125,7 @@ class TermsScreen extends GetView<TermsController> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'Privacy Policy',
+                                      "kPrivacyPolicy".tr(),
                                       style: AppStyles.whiteTextStyle()
                                           .copyWith(
                                         fontWeight: FontWeight.w600,
@@ -145,7 +148,7 @@ class TermsScreen extends GetView<TermsController> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'Terms & Conditions',
+                                      "kTermsAndConditions".tr(),
                                       style: AppStyles.whiteTextStyle()
                                           .copyWith(
                                         fontWeight: FontWeight.w600,
@@ -244,7 +247,7 @@ class TermsScreen extends GetView<TermsController> {
                                   textColor: controller.enabledUpdate.value
                                       ? kWhiteColor
                                       : kDisableBtnTextColor,
-                                  title: "UPDATE",
+                                  title: "kUpdateLarge".tr(),
                                   height: 40,
                                   width: 114,
                                   textSize: 14.sp,
@@ -260,7 +263,7 @@ class TermsScreen extends GetView<TermsController> {
                                   width: 8,
                                 ),
                                 CustomButton(
-                                  title: "DISCARD CHANGES",
+                                  title: "kDiscardChanges".tr(),
                                   height: 40,
                                   width: 190,
                                   textSize: 14.sp,
@@ -289,7 +292,7 @@ class TermsScreen extends GetView<TermsController> {
                                 CustomButton(
                                   textSize: 14.sp,
                                   textColor: kBlackColor,
-                                  title: "CANCEL",
+                                  title: "kCancel".tr(),
                                   height: 40,
                                   width: 90,
                                   onTap: () {
@@ -303,7 +306,7 @@ class TermsScreen extends GetView<TermsController> {
                           }
                           return Center(
                             child: CustomButton(
-                              title: "Edit ${controller.selectedIndex.value==0? "Privacy Policy": controller.selectedIndex.value == 1? "Cookies Policy" : "Terms & Conditions"}",
+                              title: "${"kEdit".tr()} ${controller.selectedIndex.value==0? "kPrivacyPolicy".tr(): controller.selectedIndex.value == 1? "Cookies Policy" : "kTermsAndConditions".tr()}",
                               height: 56,
                               onTap: () {
                                 controller.toggleEditing();

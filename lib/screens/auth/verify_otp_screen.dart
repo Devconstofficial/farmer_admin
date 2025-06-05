@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
@@ -39,15 +42,15 @@ class VerifyOtpScreen extends GetView<AuthController> {
             ),
             SizedBox(height: 28),
             Text(
-              "Verify OTP",
+              "kVerifyOtp".tr(),
               style: AppStyles.blackTextStyle().copyWith(
-                fontSize: 40,
+                fontSize: 32.sp,
                 fontWeight: FontWeight.w700,
               ),
             ),
             SizedBox(height: 8),
             Text(
-              "Please enter the 5 digit OTP to confirm verification.",
+              "kOtpInstruction".tr(),
               style: AppStyles.blackTextStyle().copyWith(fontSize: 16,color: kGreyShade5Color,fontWeight: FontWeight.w400),
             ),
             SizedBox(height: 56),
@@ -70,7 +73,7 @@ class VerifyOtpScreen extends GetView<AuthController> {
             SizedBox(height: 40),
             CustomButton(
               width: MediaQuery.of(context).size.width,
-              title: "Verify OTP",
+              title: "kVerifyOtp".tr(),
               color: kPrimaryColor,
               borderColor: kPrimaryColor,
               onTap: () {

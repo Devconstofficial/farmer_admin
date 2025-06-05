@@ -1,6 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_images.dart';
 import '../../utils/app_strings.dart';
@@ -22,6 +26,8 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     // bool isTablet = ResponsiveBreakpoints.of(context).largerThan(TABLET);
     double width = MediaQuery.of(context).size.width;
+    Locale locale = Localizations.localeOf(context);
+
 
     return Drawer(
       backgroundColor: kWhiteColor,
@@ -79,7 +85,7 @@ class _SideMenuState extends State<SideMenu> {
                                           borderRadius: BorderRadius.circular(16)
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.only( left: 24),
+                                          padding: locale.languageCode == 'ar' ? EdgeInsets.only( right: 24) : EdgeInsets.only( left: 24),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -94,7 +100,7 @@ class _SideMenuState extends State<SideMenu> {
                                               ),
                                               SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                                               Text(
-                                                "Dashboard",
+                                                "kDashboard".tr(),
                                                 style: AppStyles.blackTextStyle().copyWith(
                                                     color: menuController.selectedIndex.value == 0
                                                         ? kWhiteColor
@@ -138,7 +144,7 @@ class _SideMenuState extends State<SideMenu> {
                                             borderRadius: BorderRadius.circular(16)
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.only( left: 24),
+                                          padding: locale.languageCode == 'ar' ? EdgeInsets.only( right: 24) : EdgeInsets.only( left: 24),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -153,7 +159,7 @@ class _SideMenuState extends State<SideMenu> {
                                               ),
                                               SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                                               Text(
-                                                "Users",
+                                                "kUsers".tr(),
                                                 style: AppStyles.blackTextStyle().copyWith(
                                                     color: menuController.selectedIndex.value == 1
                                                         ? kWhiteColor
@@ -197,7 +203,7 @@ class _SideMenuState extends State<SideMenu> {
                                             borderRadius: BorderRadius.circular(16)
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.only( left: 24),
+                                          padding: locale.languageCode == 'ar' ? EdgeInsets.only( right: 24) : EdgeInsets.only( left: 24),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -212,7 +218,7 @@ class _SideMenuState extends State<SideMenu> {
                                               ),
                                               SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                                               Text(
-                                                "Sales",
+                                                "kSales".tr(),
                                                 style: AppStyles.blackTextStyle().copyWith(
                                                     color: menuController.selectedIndex.value == 2
                                                         ? kWhiteColor
@@ -256,7 +262,7 @@ class _SideMenuState extends State<SideMenu> {
                                             borderRadius: BorderRadius.circular(16)
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.only( left: 24),
+                                          padding: locale.languageCode == 'ar' ? EdgeInsets.only( right: 24) : EdgeInsets.only( left: 24),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -271,7 +277,7 @@ class _SideMenuState extends State<SideMenu> {
                                               ),
                                               SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                                               Text(
-                                                "Inbox",
+                                                "kInbox".tr(),
                                                 style: AppStyles.blackTextStyle().copyWith(
                                                     color: menuController.selectedIndex.value == 3
                                                         ? kWhiteColor
@@ -315,7 +321,7 @@ class _SideMenuState extends State<SideMenu> {
                                             borderRadius: BorderRadius.circular(16)
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.only( left: 24),
+                                          padding: locale.languageCode == 'ar' ? EdgeInsets.only( right: 24) : EdgeInsets.only( left: 24),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -331,7 +337,7 @@ class _SideMenuState extends State<SideMenu> {
                                               SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                                               Expanded(
                                                 child: Text(
-                                                  "Distribution Employee",
+                                                  "kDistributionEmployee".tr(),
                                                   style: AppStyles.blackTextStyle().copyWith(
                                                       color: menuController.selectedIndex.value == 4
                                                           ? kWhiteColor
@@ -376,7 +382,7 @@ class _SideMenuState extends State<SideMenu> {
                                             borderRadius: BorderRadius.circular(16)
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.only( left: 24),
+                                          padding: locale.languageCode == 'ar' ? EdgeInsets.only( right: 24) : EdgeInsets.only( left: 24),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -388,7 +394,7 @@ class _SideMenuState extends State<SideMenu> {
                                               ),
                                               SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                                               Text(
-                                                "Collection Points",
+                                                "kCollectionPoint".tr(),
                                                 style: AppStyles.blackTextStyle().copyWith(
                                                     color: menuController.selectedIndex.value == 5
                                                         ? kWhiteColor
@@ -432,7 +438,7 @@ class _SideMenuState extends State<SideMenu> {
                                             borderRadius: BorderRadius.circular(16)
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.only( left: 24),
+                                          padding: locale.languageCode == 'ar' ? EdgeInsets.only( right: 24) : EdgeInsets.only( left: 24),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -447,7 +453,7 @@ class _SideMenuState extends State<SideMenu> {
                                               ),
                                               SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                                               Text(
-                                                "Support",
+                                                "kCustomerService".tr(),
                                                 style: AppStyles.blackTextStyle().copyWith(
                                                     color: menuController.selectedIndex.value == 6
                                                         ? kWhiteColor
@@ -491,7 +497,7 @@ class _SideMenuState extends State<SideMenu> {
                                             borderRadius: BorderRadius.circular(16)
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.only( left: 24),
+                                          padding: locale.languageCode == 'ar' ? EdgeInsets.only( right: 24) : EdgeInsets.only( left: 24),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
@@ -506,7 +512,7 @@ class _SideMenuState extends State<SideMenu> {
                                               ),
                                               SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                                               Text(
-                                                "Terms & Condition",
+                                                "kTermsAndConditions".tr(),
                                                 style: AppStyles.blackTextStyle().copyWith(
                                                     color: menuController.selectedIndex.value == 7
                                                         ? kWhiteColor
@@ -535,14 +541,14 @@ class _SideMenuState extends State<SideMenu> {
             ),
             // const Spacer(),
             Padding(
-              padding: const EdgeInsets.only(left: 15,bottom: 35),
+              padding: locale.languageCode == 'ar' ? EdgeInsets.only(right: 15,bottom: 35) : EdgeInsets.only(left: 15,bottom: 35),
               child: Obx(() {
                 return MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () {
                       menuController.onItemTapped(8);
-                      // Get.offAllNamed(kListingScreenRoute);
+                      Get.offAllNamed(kAuthScreenRoute);
                     },
                     child: SizedBox(
                       width: width,
@@ -572,7 +578,7 @@ class _SideMenuState extends State<SideMenu> {
                                       ),
                                       SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                                       Text(
-                                        "Logout",
+                                        "kLogout".tr(),
                                         style: AppStyles.blackTextStyle().copyWith(
                                             color: menuController.selectedIndex.value == 8
                                                 ? kWhiteColor

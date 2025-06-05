@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../screens/chat_screen/controller/chat_controller.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_images.dart';
@@ -20,7 +21,7 @@ class ChatDetailView extends StatelessWidget {
       controller.selectedChatRoom.value == null
           ? Center(
         child: Text(
-          'Select a chat to view',
+          "kSelectChatToView".tr(),
           style: AppStyles.blackTextStyle().copyWith(fontSize: 16.sp,fontWeight: FontWeight.w500),
         ),
       )
@@ -76,7 +77,7 @@ class ChatDetailView extends StatelessWidget {
                         ),
                         SizedBox(width: 3),
                         Text(
-                          'Online',
+                          "kOnline".tr(),
                           style: TextStyle(
                             color: kPurpleShadeColor,
                             fontSize: 12.sp,
@@ -102,7 +103,7 @@ class ChatDetailView extends StatelessWidget {
             controller.selectedChatRoom.value!.messages.isEmpty
                 ? Center(
               child: Text(
-                'No messages',
+                "kNoMessages".tr(),
                 style: AppStyles.whiteTextStyle(),
               ),
             )
@@ -235,7 +236,7 @@ class ChatDetailView extends StatelessWidget {
                         fontSize: 14.sp,
                       ),
                       decoration: InputDecoration(
-                        hintText: 'Your message',
+                        hintText: "kYourMessage".tr(),
                         hintStyle: AppStyles.whiteTextStyle().copyWith(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
@@ -265,7 +266,7 @@ class ChatDetailView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Send',
+                            "kSend".tr(),
                             style: AppStyles.whiteTextStyle().copyWith(
                               fontSize: 12.sp,
                             ),

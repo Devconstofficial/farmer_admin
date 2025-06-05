@@ -1,8 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:farmer_admin/custom_widgets/product_widget.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 import '../../../utils/app_styles.dart';
@@ -40,7 +45,7 @@ class SalesScreen extends GetView<SalesController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Detail Overview",
+                      "kDetailOverview".tr(),
                       style: AppStyles.blackTextStyle().copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -66,12 +71,12 @@ class SalesScreen extends GetView<SalesController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    DetailRowWidget(title: "Decision ID", detail: "DEC-2023"),
-                    DetailRowWidget(title: "Employee Name", detail: "David Miller"),
-                    DetailRowWidget(title: "Collection Point", detail: "Downtown Hub"),
-                    DetailRowWidget(title: "Decision Type", detail: "Discount Approval"),
+                    DetailRowWidget(title: "kDecisionId".tr(), detail: "DEC-2023"),
+                    DetailRowWidget(title: "kEmployeeName".tr(), detail: "David Miller"),
+                    DetailRowWidget(title: "kCollectionPoint".tr(), detail: "Downtown Hub"),
+                    DetailRowWidget(title: "kDecisionType".tr(), detail: "Discount Approval"),
                     DetailRowWidget(title: "Decision Date & Time", detail: "March 6, 2025 - 10:45 AM"),
-                    DetailRowWidget(title: "Status", detail: "✅ Approved"),
+                    DetailRowWidget(title: "kStatus".tr(), detail: "✅ Approved"),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
                       child: Divider(
@@ -82,13 +87,13 @@ class SalesScreen extends GetView<SalesController> {
                       ),
                     ),
                     Text(
-                      "Reason Provided by Employee:",
+                      "${"kReasonProvidedByEmployee".tr()}:",
                       style: AppStyles.blackTextStyle()
                           .copyWith(fontSize: 14, fontWeight: FontWeight.w700),
                     ),
                     SizedBox(height: 10,),
                     Text(
-                      "The customer is a frequent buyer who requested a discount on a large order. To maintain a good relationship and increase sales volume, I approved a 10% discount for orders above \$500.",
+                      "kOfferText".tr(),
                       style: AppStyles.blackTextStyle()
                           .copyWith(fontSize: 16, fontWeight: FontWeight.w400),
                     ),
@@ -132,7 +137,7 @@ class SalesScreen extends GetView<SalesController> {
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Sales",
+                              "kSales".tr(),
                               style: AppStyles.blackTextStyle().copyWith(
                                   fontSize: 20.sp, fontWeight: FontWeight.w600),
                             ),
@@ -176,7 +181,7 @@ class SalesScreen extends GetView<SalesController> {
                                       fontSize: 14.sp, fontWeight: FontWeight.w500,color: kBlueColor),
                                 ),
                                 Text(
-                                  "Admin",
+                                  "kAdmin".tr(),
                                   style: AppStyles.greyTextStyle().copyWith(
                                       fontSize: 12.sp, fontWeight: FontWeight.w400,color: kGreyShade7Color),
                                 ),
@@ -205,7 +210,7 @@ class SalesScreen extends GetView<SalesController> {
                                     width: 216,
                                     height: 112,
                                     color: kPrimaryColor,
-                                    title: "Total Sales",
+                                    title: "kTotalSales".tr(),
                                     totalNumber: '\$ 12,491',
                                     icon: kDoubleUserIcon,
                                     showArrow: true,
@@ -220,13 +225,13 @@ class SalesScreen extends GetView<SalesController> {
                                   width: 216,
                                   height: 112,
                                   color: kDarkPrimaryColor,
-                                  title: "Total Orders",
+                                  title: "kTotalOrders".tr(),
                                   totalNumber: '121',
                                   icon: kCashIcon,
                                 ),
                               ),
                               Spacer(),
-                              CustomButton(title: "Generate Report", onTap: (){},width: 198.w,textSize: 16.sp,fontWeight: FontWeight.w600,)
+                              CustomButton(title: "kGenerateReport".tr(), onTap: (){},width: 198.w,textSize: 16.sp,fontWeight: FontWeight.w600,)
                             ],
                           ),
                           SizedBox(
@@ -253,7 +258,7 @@ class SalesScreen extends GetView<SalesController> {
                                   color: kGreyShade5Color,
                                 ),
                                 Text(
-                                  "Filter By",
+                                  "kFilterBy".tr(),
                                   style: AppStyles.blackTextStyle()
                                       .copyWith(
                                     fontSize: 14.sp,
@@ -265,7 +270,7 @@ class SalesScreen extends GetView<SalesController> {
                                 ),
                                 Obx(() {
                                   return Text(
-                                    controller.selectedOption.value.isEmpty? "Collection Point" : controller.selectedOption.value,
+                                    controller.selectedOption.value.isEmpty? "kCollectionPoint".tr() : controller.selectedOption.value,
                                     style: AppStyles.blackTextStyle().copyWith(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w600,
@@ -328,7 +333,7 @@ class SalesScreen extends GetView<SalesController> {
                           SizedBox(
                             height: 32.h,
                           ),
-                          Text("Top Products", style: AppStyles.blackTextStyle().copyWith(
+                          Text("kTopProducts".tr(), style: AppStyles.blackTextStyle().copyWith(
                               fontSize: 20, fontWeight: FontWeight.w600)),
                           SizedBox(
                             height: 16.h,
@@ -405,7 +410,7 @@ class SalesScreen extends GetView<SalesController> {
                           SizedBox(
                             height: 16,
                           ),
-                          if(controller.selectedEmployee.value == "Employee Performance") ...[
+                          if(controller.selectedEmployee.value == "kEmployeePerformance".tr()) ...[
                             Obx(() => Container(
                               width: width,
                               decoration: BoxDecoration(
@@ -437,7 +442,7 @@ class SalesScreen extends GetView<SalesController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Employee Name",
+                                              "kEmployeeName".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -452,7 +457,7 @@ class SalesScreen extends GetView<SalesController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Orders Processed",
+                                              "kOrdersProcessed".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -467,7 +472,7 @@ class SalesScreen extends GetView<SalesController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Sales Generated (\$)",
+                                              "kSalesGenerated".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -482,7 +487,7 @@ class SalesScreen extends GetView<SalesController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Avg. Response Time (mins)",
+                                              "kAvgResponseTime".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -499,7 +504,7 @@ class SalesScreen extends GetView<SalesController> {
                                           MainAxisAlignment.center,
                                           label: Flexible(
                                             child: Text(
-                                              "Actions",
+                                              "kActions".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -564,7 +569,7 @@ class SalesScreen extends GetView<SalesController> {
                                           width: 4,
                                         ),
                                         Text(
-                                          'Back',
+                                          "kBack".tr(),
                                           style: AppStyles.blackTextStyle()
                                               .copyWith(
                                             fontSize: 12,
@@ -642,7 +647,7 @@ class SalesScreen extends GetView<SalesController> {
                                       CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Next',
+                                          "kNext".tr(),
                                           style: AppStyles.blackTextStyle()
                                               .copyWith(
                                             fontSize: 12,
@@ -668,7 +673,7 @@ class SalesScreen extends GetView<SalesController> {
                               ],
                             ),)
                           ],
-                          if(controller.selectedEmployee.value == "Decisions Tracking") ...[
+                          if(controller.selectedEmployee.value == "kDecisionsTracking".tr()) ...[
                             Obx(() => Container(
                               width: width,
                               decoration: BoxDecoration(
@@ -700,7 +705,7 @@ class SalesScreen extends GetView<SalesController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Decision ID",
+                                              "kDecisionId".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -715,7 +720,7 @@ class SalesScreen extends GetView<SalesController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Name",
+                                              "kName".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -730,7 +735,7 @@ class SalesScreen extends GetView<SalesController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Decision Type",
+                                              "kDecisionType".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -745,7 +750,7 @@ class SalesScreen extends GetView<SalesController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Collection Point",
+                                              "kCollectionPoint".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -779,7 +784,7 @@ class SalesScreen extends GetView<SalesController> {
                                           MainAxisAlignment.center,
                                           label: Flexible(
                                             child: Text(
-                                              "Action",
+                                              "kActions".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -845,7 +850,7 @@ class SalesScreen extends GetView<SalesController> {
                                           width: 4,
                                         ),
                                         Text(
-                                          'Back',
+                                          "kBack".tr(),
                                           style: AppStyles.blackTextStyle()
                                               .copyWith(
                                             fontSize: 12,
@@ -923,7 +928,7 @@ class SalesScreen extends GetView<SalesController> {
                                       CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Next',
+                                          "kNext".tr(),
                                           style: AppStyles.blackTextStyle()
                                               .copyWith(
                                             fontSize: 12,

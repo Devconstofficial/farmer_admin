@@ -1,11 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import '../../custom_widgets/chat_detail_view.dart';
 import '../../custom_widgets/chat_list_view.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_images.dart';
+import '../../utils/app_strings.dart';
 import '../../utils/app_styles.dart';
 import '../sidemenu/sidemenu.dart';
 import 'controller/chat_controller.dart';
@@ -38,7 +41,7 @@ class ChatScreen extends StatelessWidget {
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Sales",
+                            "kInbox".tr(),
                             style: AppStyles.blackTextStyle().copyWith(
                                 fontSize: 20.sp, fontWeight: FontWeight.w600),
                           ),
@@ -82,7 +85,7 @@ class ChatScreen extends StatelessWidget {
                                     fontSize: 14.sp, fontWeight: FontWeight.w500,color: kBlueColor),
                               ),
                               Text(
-                                "Admin",
+                                "kAdmin".tr(),
                                 style: AppStyles.greyTextStyle().copyWith(
                                     fontSize: 12.sp, fontWeight: FontWeight.w400,color: kGreyShade7Color),
                               ),

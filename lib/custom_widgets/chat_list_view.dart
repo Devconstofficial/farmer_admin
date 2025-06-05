@@ -1,6 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl/intl.dart';
 
 import '../screens/chat_screen/controller/chat_controller.dart';
@@ -41,7 +45,7 @@ class ChatListView extends StatelessWidget {
                         fontWeight: FontWeight.w400,),
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.only(bottom: 0,top: 10),
-                        hintText: 'Search by user id',
+                        hintText: "kSearchByUserId".tr(),
                         fillColor: kWhiteColor,
                         hintStyle:
                         AppStyles.blackTextStyle()

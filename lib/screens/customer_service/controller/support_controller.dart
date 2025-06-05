@@ -1,13 +1,16 @@
-import 'package:get/get.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 
 class SupportController extends GetxController {
   var selectedUserType = ''.obs;
   RxDouble rating = 5.0.obs;
-  var selectedTab = 'User Details'.obs;
-  List<String> employee = ["By Decisions", "By Employees"];
-  RxString selectedEmployee = "By Employees".obs;
+  var selectedTab = "kUserDetails".tr().obs;
+  List<String> employee = ["kByDecisions".tr(), "kByEmployees".tr()];
+  RxString selectedEmployee = "kByEmployees".tr().obs;
   List<String> options = ["4.5", "5.0"];
   RxString selectedOption = "".obs;
   List<String> options1 = ["40 hrs/week", "40 hrs/week"];

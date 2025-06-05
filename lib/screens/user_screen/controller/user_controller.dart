@@ -1,12 +1,15 @@
-import 'package:get/get.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../../../utils/app_colors.dart';
 
 class UserController extends GetxController {
   var selectedUserType = ''.obs;
   var showDetail = false.obs;
   RxDouble rating = 4.5.obs;
-  var selectedTab = 'User Details'.obs;
-  List<String> options = ["Customer", "Supplier"];
+  var selectedTab = "kUserDetails".tr().obs;
+  List<String> options = ["kCustomer".tr(), "kSupplier".tr()];
   RxString selectedOption = "".obs;
   var messages = <Map<String, dynamic>>[
     {'text': "Hello, I want to make enquiries about your product", 'isMe': false},

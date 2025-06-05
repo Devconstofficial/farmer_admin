@@ -1,12 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../../../utils/app_colors.dart';
 
 class DashboardController extends GetxController {
   var selectedUserType = ''.obs;
-  var selectedTab = 'User Details'.obs;
-  List<String> options = ["7 Days", "30 Days", "1 Year"];
+  var selectedTab = "kUserDetails".tr().obs;
+  List<String> options = ["k7Days".tr(), "k30Days".tr(), "k1Year".tr()];
   RxString selectedOption = "".obs;
   RxList<BarChartGroupData> barChartData = <BarChartGroupData>[].obs;
 

@@ -1,9 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:farmer_admin/screens/distribution_employe/controller/distribution_controller.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
@@ -134,47 +139,47 @@ class DistributionScreen extends GetView<DistributionController> {
                   children: [
                     GestureDetector(
                       onTap: (){
-                        controller.selectedTab.value = 'Detail Overview';
+                        controller.selectedTab.value = "kDetailOverview".tr();
                         controller.showDetail.value = false;
                       },
                       child: Text(
-                        "Detail Overview",
+                        "kDetailOverview".tr(),
                         style: AppStyles.blackTextStyle().copyWith(
                           fontSize: 14,
-                            fontWeight: controller.selectedTab.value == "Detail Overview" ? FontWeight.w700 : FontWeight.w400,
-                            color: controller.selectedTab.value == "Detail Overview" ? kBlackColor : kDarkBlueColor
+                            fontWeight: controller.selectedTab.value == "kDetailOverview".tr() ? FontWeight.w700 : FontWeight.w400,
+                            color: controller.selectedTab.value == "kDetailOverview".tr() ? kBlackColor : kDarkBlueColor
                         ),
                       ),
                     ),
                     SizedBox(width: 27.w,),
                     GestureDetector(
                       onTap: (){
-                        controller.selectedTab.value = 'Products';
+                        controller.selectedTab.value = "kProducts".tr();
                         controller.showDetail.value = false;
                       },
                       child: Text(
-                        "Products",
+                        "kProducts".tr(),
                         style: AppStyles.blackTextStyle()
                             .copyWith(
                             fontSize: 14,
-                            fontWeight: controller.selectedTab.value == "Products" ? FontWeight.w700 : FontWeight.w400,
-                            color: controller.selectedTab.value == "Products" ? kBlackColor : kDarkBlueColor
+                            fontWeight: controller.selectedTab.value == "kProducts".tr() ? FontWeight.w700 : FontWeight.w400,
+                            color: controller.selectedTab.value == "kProducts".tr() ? kBlackColor : kDarkBlueColor
                         ),
                       ),
                     ),
                     SizedBox(width: 27.w,),
                     GestureDetector(
                       onTap: (){
-                        controller.selectedTab.value = 'Orders';
+                        controller.selectedTab.value = "kOrders".tr();
                         controller.showDetail.value = false;
                       },
                       child: Text(
-                        "Orders",
+                        "kOrders".tr(),
                         style: AppStyles.blackTextStyle()
                             .copyWith(
                             fontSize: 14,
-                            fontWeight: controller.selectedTab.value == "Orders" ? FontWeight.w700 : FontWeight.w400,
-                            color: controller.selectedTab.value == "Orders" ? kBlackColor : kDarkBlueColor
+                            fontWeight: controller.selectedTab.value == "kOrders".tr() ? FontWeight.w700 : FontWeight.w400,
+                            color: controller.selectedTab.value == "kOrders".tr() ? kBlackColor : kDarkBlueColor
                         ),
                       ),
                     ),
@@ -192,7 +197,7 @@ class DistributionScreen extends GetView<DistributionController> {
                   ],
                 ),
               ),
-              if (controller.selectedTab.value == 'Detail Overview')
+              if (controller.selectedTab.value == "kDetailOverview".tr())
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Row(
@@ -244,7 +249,7 @@ class DistributionScreen extends GetView<DistributionController> {
                   ],
                 ),
               ),
-              if (controller.selectedTab.value == 'Products')
+              if (controller.selectedTab.value == "kProducts".tr())
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: 2,
@@ -282,7 +287,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                             .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
                                       ),
                                       Text(
-                                        "(60 Reviews)",
+                                        "(60 ${"kReviews".tr()})",
                                         style: AppStyles.greyTextStyle()
                                             .copyWith(fontSize: 10, fontWeight: FontWeight.w600,color: kGreyShade5Color),
                                       ),
@@ -323,7 +328,7 @@ class DistributionScreen extends GetView<DistributionController> {
                       ),
                     );
                   },),
-              if(controller.selectedTab.value == 'Orders')
+              if(controller.selectedTab.value == "kOrders".tr())
                 Obx(() => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Column(
@@ -353,13 +358,13 @@ class DistributionScreen extends GetView<DistributionController> {
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                Text("kCollectionPoint".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                                 SizedBox(height: 3,),
-                                                Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                                Text("kLondon".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                                 SizedBox(height: 9,),
-                                                Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                Text("kDeliveryAddress".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                                 SizedBox(height: 3,),
-                                                Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                                Text("kSussex".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                               ],
                                             ),
                                           ),
@@ -407,7 +412,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                                       width: 5,
                                                     ),
                                                     Text(
-                                                      "(60 Reviews)",
+                                                      "(60 ${"kReviews".tr()})",
                                                       style: AppStyles.greyTextStyle()
                                                           .copyWith(
                                                           fontSize: 10,
@@ -423,7 +428,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         ],
                                       ),
                                       SizedBox(height: 12,),
-                                      CustomButton(title: "View Details", onTap: (){
+                                      CustomButton(title: "kViewDetails".tr(), onTap: (){
                                         controller.showDetail.value = true;
                                       },color: kWhiteColor,borderColor: kPrimaryColor,textColor: kGreyShade9Color,textSize: 13,fontWeight: FontWeight.w400,height: 36,)
                                     ],
@@ -452,13 +457,13 @@ class DistributionScreen extends GetView<DistributionController> {
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                Text("kCollectionPoint".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                                 SizedBox(height: 3,),
-                                                Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                                Text("kLondon".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                                 SizedBox(height: 9,),
-                                                Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                                Text("kDeliveryAddress".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                                 SizedBox(height: 3,),
-                                                Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                                Text("kSussex".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                               ],
                                             ),
                                           ),
@@ -506,7 +511,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                                       width: 5,
                                                     ),
                                                     Text(
-                                                      "(60 Reviews)",
+                                                      "(60 ${"kReviews".tr()})",
                                                       style: AppStyles.greyTextStyle()
                                                           .copyWith(
                                                           fontSize: 10,
@@ -522,7 +527,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         ],
                                       ),
                                       SizedBox(height: 12,),
-                                      CustomButton(title: "View Details", onTap: (){
+                                      CustomButton(title: "kViewDetails".tr(), onTap: (){
                                         controller.showDetail.value = true;
                                       },color: kWhiteColor,borderColor: kPrimaryColor,textColor: kGreyShade9Color,textSize: 13,fontWeight: FontWeight.w400,height: 36,)
                                     ],
@@ -557,11 +562,11 @@ class DistributionScreen extends GetView<DistributionController> {
                               ),
                             ),
                             SizedBox(height: 16,),
-                            DetailRowWidget(title: "Order ID", detail: "1712351276"),
+                            DetailRowWidget(title: "kOrderId".tr(), detail: "1712351276"),
                             SizedBox(height: 6,),
-                            DetailRowWidget(title: "Order Status", detail: "Out for Delivery"),
+                            DetailRowWidget(title: "kOrderStatus".tr(), detail: "Out for Delivery"),
                             SizedBox(height: 6,),
-                            DetailRowWidget(title: "Payment Status", detail: "Paid"),
+                            DetailRowWidget(title: "kPaymentStatus".tr(), detail: "Paid"),
                             const SizedBox(
                               height: 20,
                             ),
@@ -579,7 +584,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Customer Detail:",
+                                      "${"kCustomerDetail".tr()}:",
                                       style: AppStyles.blackTextStyle()
                                           .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
                                     ),
@@ -612,7 +617,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                                       .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
                                                 ),
                                                 Text(
-                                                  "(60 Reviews)",
+                                                  "(60 ${"kReviews".tr()})",
                                                   style: AppStyles.greyTextStyle()
                                                       .copyWith(fontSize: 10, fontWeight: FontWeight.w600,color: kGreyShade5Color),
                                                 ),
@@ -630,7 +635,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Customer Detail:",
+                                      "${"kCustomerDetail".tr()}:",
                                       style: AppStyles.blackTextStyle()
                                           .copyWith(fontSize: 16, fontWeight: FontWeight.w700),
                                     ),
@@ -663,7 +668,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                                       .copyWith(fontSize: 10, fontWeight: FontWeight.w600),
                                                 ),
                                                 Text(
-                                                  "(60 Reviews)",
+                                                  "(60 ${"kReviews".tr()})",
                                                   style: AppStyles.greyTextStyle()
                                                       .copyWith(fontSize: 10, fontWeight: FontWeight.w600,color: kGreyShade5Color),
                                                 ),
@@ -715,7 +720,7 @@ class DistributionScreen extends GetView<DistributionController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Chat Overview",
+                      "kChatOverview".tr(),
                       style: AppStyles.blackTextStyle().copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -822,7 +827,7 @@ class DistributionScreen extends GetView<DistributionController> {
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Distribution Employee",
+                              "kDistributionEmployee".tr(),
                               style: AppStyles.blackTextStyle().copyWith(
                                   fontSize: 20.sp, fontWeight: FontWeight.w600),
                             ),
@@ -866,7 +871,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                       fontSize: 14.sp, fontWeight: FontWeight.w500,color: kBlueColor),
                                 ),
                                 Text(
-                                  "Admin",
+                                  "kAdmin".tr(),
                                   style: AppStyles.greyTextStyle().copyWith(
                                       fontSize: 12.sp, fontWeight: FontWeight.w400,color: kGreyShade7Color),
                                 ),
@@ -959,7 +964,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                     width: 202,
                                     height: 112,
                                     color: kPrimaryColor,
-                                    title: "Total Employees",
+                                    title: "kTotalEmployees".tr(),
                                     totalNumber: '1200',
                                     icon: kDoubleUserIcon,
                                   )),
@@ -971,7 +976,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                   width: 230,
                                   height: 112,
                                   color: kDarkPrimaryColor,
-                                  title: "Total Request Approved",
+                                  title: "kTotalRequestApproved".tr(),
                                   totalNumber: '1200',
                                   icon: kCashIcon,
                                 ),
@@ -1002,7 +1007,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                   color: kGreyShade5Color,
                                 ),
                                 Text(
-                                  "Filter By",
+                                  "kFilterBy".tr(),
                                   style: AppStyles.blackTextStyle()
                                       .copyWith(
                                     fontSize: 14.sp,
@@ -1014,7 +1019,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                 ),
                                 Obx(() {
                                   return Text(
-                                    controller.selectedOption.value.isEmpty? "User Type" : controller.selectedOption.value,
+                                    controller.selectedOption.value.isEmpty? "kUserType".tr() : controller.selectedOption.value,
                                     style: AppStyles.blackTextStyle().copyWith(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w600,
@@ -1073,7 +1078,7 @@ class DistributionScreen extends GetView<DistributionController> {
                           SizedBox(
                             height: 32.h,
                           ),
-                          if(controller.selectedEmployee.value == "Employee Performance") ...[
+                          if(controller.selectedEmployee.value == "kEmployeePerformance".tr()) ...[
                             Obx(() => Container(
                               width: width,
                               decoration: BoxDecoration(
@@ -1105,7 +1110,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Employee Name",
+                                              "kEmployeeName".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1120,7 +1125,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Collection Point",
+                                              "kCollectionPoint".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1135,7 +1140,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Orders Handled",
+                                              "kOrdersHandled".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1150,7 +1155,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Driver | Supplier Approvals",
+                                              "kDriverSupplierApprovals".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1167,7 +1172,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                           MainAxisAlignment.center,
                                           label: Flexible(
                                             child: Text(
-                                              "Actions",
+                                              "kActions".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1232,7 +1237,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                           width: 4,
                                         ),
                                         Text(
-                                          'Back',
+                                          "kBack".tr(),
                                           style: AppStyles.blackTextStyle()
                                               .copyWith(
                                             fontSize: 12,
@@ -1310,7 +1315,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                       CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Next',
+                                          "kNext".tr(),
                                           style: AppStyles.blackTextStyle()
                                               .copyWith(
                                             fontSize: 12,
@@ -1336,7 +1341,7 @@ class DistributionScreen extends GetView<DistributionController> {
                               ],
                             ),)
                           ],
-                          if(controller.selectedEmployee.value == "Request Approval") ...[
+                          if(controller.selectedEmployee.value == "kRequestApproval".tr()) ...[
                             Obx(() => Container(
                               width: width,
                               decoration: BoxDecoration(
@@ -1368,7 +1373,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Request ID",
+                                              "kRequestId".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1383,7 +1388,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Employee Name",
+                                              "kEmployeeName".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1398,7 +1403,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Request Type",
+                                              "kRequestType".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1413,24 +1418,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                         DataColumn(
                                           label: Flexible(
                                             child: Text(
-                                              "Requester (Supplier/Driver)",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              style:
-                                              AppStyles.whiteTextStyle()
-                                                  .copyWith(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 14.sp,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          headingRowAlignment:
-                                          MainAxisAlignment.center,
-                                          label: Flexible(
-                                            child: Text(
-                                              "Status",
+                                              "kRequesterLabel".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1447,7 +1435,24 @@ class DistributionScreen extends GetView<DistributionController> {
                                           MainAxisAlignment.center,
                                           label: Flexible(
                                             child: Text(
-                                              "Notes",
+                                              "kStatus".tr(),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style:
+                                              AppStyles.whiteTextStyle()
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn(
+                                          headingRowAlignment:
+                                          MainAxisAlignment.center,
+                                          label: Flexible(
+                                            child: Text(
+                                              "kNotes".tr(),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style:
@@ -1516,7 +1521,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                           width: 4,
                                         ),
                                         Text(
-                                          'Back',
+                                          "kBack".tr(),
                                           style: AppStyles.blackTextStyle()
                                               .copyWith(
                                             fontSize: 12,
@@ -1594,7 +1599,7 @@ class DistributionScreen extends GetView<DistributionController> {
                                       CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Next',
+                                          "kNext".tr(),
                                           style: AppStyles.blackTextStyle()
                                               .copyWith(
                                             fontSize: 12,

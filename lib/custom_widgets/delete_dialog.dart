@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
@@ -38,7 +40,7 @@ class DeleteDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Delete Entry?',
+                    "kDeleteEntry".tr(),
                     style: AppStyles.whiteTextStyle().copyWith(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
@@ -58,7 +60,7 @@ class DeleteDialog extends StatelessWidget {
                 vertical: 14,
               ),
               child: Text(
-                "This can't be undone.",
+                "kDeleteWarning".tr(),
                 style: AppStyles.greyTextStyle().copyWith(
                   fontSize: 14,
                   color: kGreyShade6Color,
@@ -87,7 +89,7 @@ class DeleteDialog extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'Cancel',
+                      "kCancel".tr(),
                       style: AppStyles.blackTextStyle().copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,
@@ -109,7 +111,7 @@ class DeleteDialog extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'Delete',
+                      "kDelete".tr(),
                       style: AppStyles.whiteTextStyle().copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 14,

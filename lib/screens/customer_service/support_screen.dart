@@ -1,8 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:farmer_admin/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_images.dart';
 import '../../../utils/app_styles.dart';
@@ -50,20 +55,20 @@ class SupportScreen extends GetView<SupportController> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  controller.selectedTab.value = 'User Details';
+                                  controller.selectedTab.value = "kUserDetails".tr();
                                 },
                                 child: Text(
-                                  "User Details",
+                                  "kUserDetails".tr(),
                                   style: AppStyles.blackTextStyle().copyWith(
                                     fontSize: 14,
                                     fontWeight:
                                         controller.selectedTab.value ==
-                                                "User Details"
+                                            "kUserDetails".tr()
                                             ? FontWeight.w700
                                             : FontWeight.w400,
                                     color:
                                         controller.selectedTab.value ==
-                                                "User Details"
+                                            "kUserDetails".tr()
                                             ? kBlackColor
                                             : kDarkBlueColor,
                                   ),
@@ -72,20 +77,20 @@ class SupportScreen extends GetView<SupportController> {
                               SizedBox(width: 20.w),
                               GestureDetector(
                                 onTap: () {
-                                  controller.selectedTab.value = 'Products';
+                                  controller.selectedTab.value = "kProducts".tr();
                                 },
                                 child: Text(
-                                  "Products",
+                                  "kProducts".tr(),
                                   style: AppStyles.blackTextStyle().copyWith(
                                     fontSize: 14,
                                     fontWeight:
                                         controller.selectedTab.value ==
-                                                "Products"
+                                            "kProducts".tr()
                                             ? FontWeight.w700
                                             : FontWeight.w400,
                                     color:
                                         controller.selectedTab.value ==
-                                                "Products"
+                                            "kProducts".tr()
                                             ? kBlackColor
                                             : kDarkBlueColor,
                                   ),
@@ -94,43 +99,20 @@ class SupportScreen extends GetView<SupportController> {
                               SizedBox(width: 20.w),
                               GestureDetector(
                                 onTap: () {
-                                  controller.selectedTab.value = 'Requests';
+                                  controller.selectedTab.value = "kRequests".tr();
                                 },
                                 child: Text(
-                                  "Requests",
+                                  "kRequests".tr(),
                                   style: AppStyles.blackTextStyle().copyWith(
                                     fontSize: 14,
                                     fontWeight:
                                         controller.selectedTab.value ==
-                                                "Requests"
+                                            "kRequests".tr()
                                             ? FontWeight.w700
                                             : FontWeight.w400,
                                     color:
                                         controller.selectedTab.value ==
-                                                "Requests"
-                                            ? kBlackColor
-                                            : kDarkBlueColor,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 20.w),
-                              GestureDetector(
-                                onTap: () {
-                                  controller.selectedTab.value =
-                                      'View Support Chat';
-                                },
-                                child: Text(
-                                  "View Support Chat",
-                                  style: AppStyles.blackTextStyle().copyWith(
-                                    fontSize: 14,
-                                    fontWeight:
-                                        controller.selectedTab.value ==
-                                                "View Support Chat"
-                                            ? FontWeight.w700
-                                            : FontWeight.w400,
-                                    color:
-                                        controller.selectedTab.value ==
-                                                "View Support Chat"
+                                            "kRequests".tr()
                                             ? kBlackColor
                                             : kDarkBlueColor,
                                   ),
@@ -140,20 +122,20 @@ class SupportScreen extends GetView<SupportController> {
                               GestureDetector(
                                 onTap: () {
                                   controller.selectedTab.value =
-                                      'Ratings given';
+                                      "kViewSupportChat".tr();
                                 },
                                 child: Text(
-                                  "Ratings given",
+                                  "kViewSupportChat".tr(),
                                   style: AppStyles.blackTextStyle().copyWith(
                                     fontSize: 14,
                                     fontWeight:
                                         controller.selectedTab.value ==
-                                                "Ratings given"
+                                            "kViewSupportChat".tr()
                                             ? FontWeight.w700
                                             : FontWeight.w400,
                                     color:
                                         controller.selectedTab.value ==
-                                                "Ratings given"
+                                            "kViewSupportChat".tr()
                                             ? kBlackColor
                                             : kDarkBlueColor,
                                   ),
@@ -163,20 +145,43 @@ class SupportScreen extends GetView<SupportController> {
                               GestureDetector(
                                 onTap: () {
                                   controller.selectedTab.value =
-                                      'Ratings Received';
+                                      "kRatingsGiven".tr();
                                 },
                                 child: Text(
-                                  "Ratings Received",
+                                  "kRatingsGiven".tr(),
                                   style: AppStyles.blackTextStyle().copyWith(
                                     fontSize: 14,
                                     fontWeight:
                                         controller.selectedTab.value ==
-                                                "Ratings Received"
+                                            "kRatingsGiven".tr()
                                             ? FontWeight.w700
                                             : FontWeight.w400,
                                     color:
                                         controller.selectedTab.value ==
-                                                "Ratings Received"
+                                            "kRatingsGiven".tr()
+                                            ? kBlackColor
+                                            : kDarkBlueColor,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 20.w),
+                              GestureDetector(
+                                onTap: () {
+                                  controller.selectedTab.value =
+                                      "kRatingsReceived".tr();
+                                },
+                                child: Text(
+                                  "kRatingsReceived".tr(),
+                                  style: AppStyles.blackTextStyle().copyWith(
+                                    fontSize: 14,
+                                    fontWeight:
+                                        controller.selectedTab.value ==
+                                            "kRatingsReceived".tr()
+                                            ? FontWeight.w700
+                                            : FontWeight.w400,
+                                    color:
+                                        controller.selectedTab.value ==
+                                            "kRatingsReceived".tr()
                                             ? kBlackColor
                                             : kDarkBlueColor,
                                   ),
@@ -201,7 +206,7 @@ class SupportScreen extends GetView<SupportController> {
                     ],
                   ),
                 ),
-                if (controller.selectedTab.value == 'User Details')
+                if (controller.selectedTab.value == "kUserDetails".tr())
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: Column(
@@ -209,26 +214,26 @@ class SupportScreen extends GetView<SupportController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         DetailRowWidget(
-                          title: "Phone  Number",
+                          title: "kPhoneNumber".tr(),
                           detail: "+91712351276",
                         ),
                         DetailRowWidget(
-                          title: "Email",
+                          title: "kEmail".tr(),
                           detail: "Maliele@gmail.com",
                         ),
                         DetailRowWidget(title: "Name", detail: "Yasir Nawaz"),
                         DetailRowWidget(
-                          title: "Registration Date",
+                          title: "kRegistrationDate".tr(),
                           detail: "2024-02-10",
                         ),
                         DetailRowWidget(
-                          title: "Collection Points",
+                          title: "kCollectionPoint".tr(),
                           detail: "CP A and CP B",
                         ),
                       ],
                     ),
                   ),
-                if (controller.selectedTab.value == 'Products')
+                if (controller.selectedTab.value == "kProducts".tr())
                   Obx(
                     () => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 24),
@@ -265,7 +270,7 @@ class SupportScreen extends GetView<SupportController> {
                       ),
                     ),
                   ),
-                if (controller.selectedTab.value == 'Requests')
+                if (controller.selectedTab.value == "kRequests".tr())
                   Obx(
                     () => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 24),
@@ -303,16 +308,16 @@ class SupportScreen extends GetView<SupportController> {
                       ),
                     ),
                   ),
-                if (controller.selectedTab.value == 'View Support Chat')
+                if (controller.selectedTab.value == "kViewSupportChat".tr())
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: Column(
                       spacing: 6,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        DetailRowWidget(title: "Rating", detail: "4.5"),
+                        DetailRowWidget(title: "kRating".tr(), detail: "4.5"),
                         DetailRowWidget(
-                          title: "Review",
+                          title: "kReview".tr(),
                           detail: "Lorem ipsum dolor sit amet, consetetur sadi sspscing elitr, sed diam \nnonumy",
                         ),
                         const SizedBox(height: 20),
@@ -376,7 +381,7 @@ class SupportScreen extends GetView<SupportController> {
                       ],
                     ),
                   ),
-                if (controller.selectedTab.value == 'Ratings given')
+                if (controller.selectedTab.value == "kRatingsGiven".tr())
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: Row(
@@ -401,13 +406,13 @@ class SupportScreen extends GetView<SupportController> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                            Text("kCollectionPoint".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                             SizedBox(height: 3,),
-                                            Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                            Text("kLondon".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                             SizedBox(height: 9,),
-                                            Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                            Text("kDeliveryAddress".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                             SizedBox(height: 3,),
-                                            Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                            Text("kSussex".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                           ],
                                         ),
                                       ),
@@ -455,7 +460,7 @@ class SupportScreen extends GetView<SupportController> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  "(60 Reviews)",
+                                                  "(60 ${"kReviews".tr()})",
                                                   style: AppStyles.greyTextStyle()
                                                       .copyWith(
                                                       fontSize: 10,
@@ -471,7 +476,7 @@ class SupportScreen extends GetView<SupportController> {
                                     ],
                                   ),
                                   SizedBox(height: 12,),
-                                  CustomButton(title: "View Rating", onTap: (){
+                                  CustomButton(title: "kViewRating".tr(), onTap: (){
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -505,13 +510,13 @@ class SupportScreen extends GetView<SupportController> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                            Text("kCollectionPoint".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                             SizedBox(height: 3,),
-                                            Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                            Text("kLondon".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                             SizedBox(height: 9,),
-                                            Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                            Text("kDeliveryAddress".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                             SizedBox(height: 3,),
-                                            Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                            Text("kSussex".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                           ],
                                         ),
                                       ),
@@ -559,7 +564,7 @@ class SupportScreen extends GetView<SupportController> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  "(60 Reviews)",
+                                                  "(60 ${"kReviews".tr()})",
                                                   style: AppStyles.greyTextStyle()
                                                       .copyWith(
                                                       fontSize: 10,
@@ -575,7 +580,7 @@ class SupportScreen extends GetView<SupportController> {
                                     ],
                                   ),
                                   SizedBox(height: 12,),
-                                  CustomButton(title: "View Rating", onTap: (){
+                                  CustomButton(title: "kViewRating".tr(), onTap: (){
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -591,7 +596,7 @@ class SupportScreen extends GetView<SupportController> {
                       ],
                     ),
                   ),
-                if (controller.selectedTab.value == 'Ratings Received')
+                if (controller.selectedTab.value == "kRatingsReceived".tr())
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: Row(
@@ -616,13 +621,13 @@ class SupportScreen extends GetView<SupportController> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                            Text("kCollectionPoint".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                             SizedBox(height: 3,),
-                                            Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                            Text("kLondon".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                             SizedBox(height: 9,),
-                                            Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                            Text("kDeliveryAddress".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                             SizedBox(height: 3,),
-                                            Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                            Text("kSussex".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                           ],
                                         ),
                                       ),
@@ -670,7 +675,7 @@ class SupportScreen extends GetView<SupportController> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  "(60 Reviews)",
+                                                  "(60 ${"kReviews".tr()})",
                                                   style: AppStyles.greyTextStyle()
                                                       .copyWith(
                                                       fontSize: 10,
@@ -686,7 +691,7 @@ class SupportScreen extends GetView<SupportController> {
                                     ],
                                   ),
                                   SizedBox(height: 12,),
-                                  CustomButton(title: "View Rating", onTap: (){
+                                  CustomButton(title: "kViewRating".tr(), onTap: (){
 
                                   },color: kWhiteColor,borderColor: kPrimaryColor,textColor: kGreyShade9Color,textSize: 13,fontWeight: FontWeight.w400,height: 36,)
                                 ],
@@ -715,13 +720,13 @@ class SupportScreen extends GetView<SupportController> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text("Collection Point",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                            Text("kCollectionPoint".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                             SizedBox(height: 3,),
-                                            Text("London",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                            Text("kLondon".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                             SizedBox(height: 9,),
-                                            Text("Delivery Address",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
+                                            Text("kDeliveryAddress".tr(),style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13),),
                                             SizedBox(height: 3,),
-                                            Text("Sussex",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
+                                            Text("kSussex".tr(),style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 13,color: kGreyShade9Color),),
                                           ],
                                         ),
                                       ),
@@ -769,7 +774,7 @@ class SupportScreen extends GetView<SupportController> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  "(60 Reviews)",
+                                                  "(60 ${"kReviews".tr()})",
                                                   style: AppStyles.greyTextStyle()
                                                       .copyWith(
                                                       fontSize: 10,
@@ -785,7 +790,7 @@ class SupportScreen extends GetView<SupportController> {
                                     ],
                                   ),
                                   SizedBox(height: 12,),
-                                  CustomButton(title: "View Rating", onTap: (){
+                                  CustomButton(title: "kViewRating".tr(), onTap: (){
 
                                   },color: kWhiteColor,borderColor: kPrimaryColor,textColor: kGreyShade9Color,textSize: 13,fontWeight: FontWeight.w400,height: 36,)
                                 ],
@@ -808,7 +813,7 @@ class SupportScreen extends GetView<SupportController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomButton(
-                        title: "Cancel",
+                        title: "kCancel".tr(),
                         onTap: () {
                           Get.back();
                         },
@@ -821,7 +826,7 @@ class SupportScreen extends GetView<SupportController> {
                         textColor: kDarkBlueColor,
                       ),
                       CustomButton(
-                        title: "De-activate User",
+                        title: "kDeactivateUser".tr(),
                         onTap: () {
                           Get.back();
                         },
@@ -875,7 +880,7 @@ class SupportScreen extends GetView<SupportController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Haylie Aminoff",style: AppStyles.blackTextStyle().copyWith(fontWeight: FontWeight.w600,fontSize: 15),),
-                      Text("32 minutes ago",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 10,color: kGreyShade9Color),)
+                      Text("32 ${"kMinutesAgo".tr()}",style: AppStyles.greyTextStyle().copyWith(fontWeight: FontWeight.w400,fontSize: 10,color: kGreyShade9Color),)
                     ],
                   ),
                   Spacer(),
@@ -940,7 +945,7 @@ class SupportScreen extends GetView<SupportController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Detail Overview",
+                      "kDetailOverview".tr(),
                       style: AppStyles.blackTextStyle().copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -968,20 +973,20 @@ class SupportScreen extends GetView<SupportController> {
                   spacing: 6,
                   children: [
                     DetailRowWidget(
-                      title: "Phone  Number",
+                      title: "kPhoneNumber".tr(),
                       detail: "+91712351276",
                     ),
                     DetailRowWidget(
-                      title: "Email",
+                      title: "kEmail".tr(),
                       detail: "Maliele@gmail.com",
                     ),
-                    DetailRowWidget(title: "Name", detail: "Yasir Nawaz"),
+                    DetailRowWidget(title: "kName".tr(), detail: "Yasir Nawaz"),
                     DetailRowWidget(
-                      title: "Registration Date",
+                      title: "kRegistrationDate".tr(),
                       detail: "2024-02-10",
                     ),
                     DetailRowWidget(
-                      title: "Collection Points",
+                      title: "kCollectionPoint".tr(),
                       detail: "CP A and CP B",
                     ),
                   ],
@@ -998,7 +1003,7 @@ class SupportScreen extends GetView<SupportController> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "Chat Overview",
+                      "kChatOverview".tr(),
                       style: AppStyles.blackTextStyle().copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -1095,7 +1100,7 @@ class SupportScreen extends GetView<SupportController> {
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Customer Service",
+                              "kCustomerService".tr(),
                               style: AppStyles.blackTextStyle().copyWith(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
@@ -1144,7 +1149,7 @@ class SupportScreen extends GetView<SupportController> {
                                   ),
                                 ),
                                 Text(
-                                  "Admin",
+                                  "kAdmin".tr(),
                                   style: AppStyles.greyTextStyle().copyWith(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
@@ -1264,7 +1269,7 @@ class SupportScreen extends GetView<SupportController> {
                                 ),
                                 Container(width: 0.3, color: kGreyShade5Color),
                                 Text(
-                                  "Filter By",
+                                  "kFilterBy".tr(),
                                   style: AppStyles.blackTextStyle().copyWith(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
@@ -1274,7 +1279,7 @@ class SupportScreen extends GetView<SupportController> {
                                 Obx(() {
                                   return Text(
                                     controller.selectedOption.value.isEmpty
-                                        ? "Ratings"
+                                        ? "kRating".tr()
                                         : controller.selectedOption.value,
                                     style: AppStyles.blackTextStyle().copyWith(
                                       fontSize: 14.sp,
@@ -1336,7 +1341,7 @@ class SupportScreen extends GetView<SupportController> {
                                 Obx(() {
                                   return Text(
                                     controller.selectedOption1.value.isEmpty
-                                        ? "Work Hours"
+                                        ? "kWorkHours".tr()
                                         : controller.selectedOption1.value,
                                     style: AppStyles.blackTextStyle().copyWith(
                                       fontSize: 14.sp,
@@ -1398,7 +1403,7 @@ class SupportScreen extends GetView<SupportController> {
                                 Obx(() {
                                   return Text(
                                     controller.selectedOption2.value.isEmpty
-                                        ? "Decision Taken"
+                                        ? "kDecisionTaken".tr()
                                         : controller.selectedOption2.value,
                                     style: AppStyles.blackTextStyle().copyWith(
                                       fontSize: 14.sp,
@@ -1460,7 +1465,7 @@ class SupportScreen extends GetView<SupportController> {
                             ),
                           ),
                           SizedBox(height: 32.h),
-                          if(controller.selectedEmployee.value == "By Employees") ...[
+                          if(controller.selectedEmployee.value == "kByEmployees".tr()) ...[
                             Obx(
                                   () => Container(
                                 width: width,
@@ -1495,7 +1500,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Employee ID",
+                                                "kEmployeeId".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1509,7 +1514,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Name",
+                                                "kName".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1523,7 +1528,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Response Time",
+                                                "kResponseTime".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1537,7 +1542,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Chats Handled",
+                                                "kChatsHandled".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1551,23 +1556,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Decisions Taken",
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                style: AppStyles.whiteTextStyle()
-                                                    .copyWith(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 14.sp,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          DataColumn(
-                                            headingRowAlignment:
-                                            MainAxisAlignment.center,
-                                            label: Flexible(
-                                              child: Text(
-                                                "Work Hours",
+                                                "kDecisionTaken".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1583,7 +1572,7 @@ class SupportScreen extends GetView<SupportController> {
                                             MainAxisAlignment.center,
                                             label: Flexible(
                                               child: Text(
-                                                "Avg. Rating",
+                                                "kWorkHours".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1599,7 +1588,23 @@ class SupportScreen extends GetView<SupportController> {
                                             MainAxisAlignment.center,
                                             label: Flexible(
                                               child: Text(
-                                                "Actions",
+                                                "kAvgRating".tr(),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                                style: AppStyles.whiteTextStyle()
+                                                    .copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 14.sp,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          DataColumn(
+                                            headingRowAlignment:
+                                            MainAxisAlignment.center,
+                                            label: Flexible(
+                                              child: Text(
+                                                "kActions".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1675,7 +1680,7 @@ class SupportScreen extends GetView<SupportController> {
                                           ),
                                           const SizedBox(width: 4),
                                           Text(
-                                            'Back',
+                                            "kBack".tr(),
                                             style: AppStyles.blackTextStyle()
                                                 .copyWith(
                                               fontSize: 12,
@@ -1768,7 +1773,7 @@ class SupportScreen extends GetView<SupportController> {
                                         CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Next',
+                                            "kNext".tr(),
                                             style: AppStyles.blackTextStyle()
                                                 .copyWith(
                                               fontSize: 12,
@@ -1796,7 +1801,7 @@ class SupportScreen extends GetView<SupportController> {
                               ),
                             ),
                           ],
-                          if(controller.selectedEmployee.value == "By Decisions") ...[
+                          if(controller.selectedEmployee.value == "kByDecisions".tr()) ...[
                             Obx(
                                   () => Container(
                                 width: width,
@@ -1831,7 +1836,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Decision ID",
+                                                "kDecisionId".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1845,7 +1850,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Decision Type",
+                                                "kDecisionType".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1859,7 +1864,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Issued By (Employee)",
+                                                "kIssuedByEmployee".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1873,7 +1878,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Customer",
+                                                "kCustomer".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1887,7 +1892,7 @@ class SupportScreen extends GetView<SupportController> {
                                           DataColumn(
                                             label: Flexible(
                                               child: Text(
-                                                "Reason",
+                                                "kReason".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1903,7 +1908,7 @@ class SupportScreen extends GetView<SupportController> {
                                             MainAxisAlignment.center,
                                             label: Flexible(
                                               child: Text(
-                                                "Actions",
+                                                "kActions".tr(),
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 1,
                                                 style: AppStyles.whiteTextStyle()
@@ -1977,7 +1982,7 @@ class SupportScreen extends GetView<SupportController> {
                                           ),
                                           const SizedBox(width: 4),
                                           Text(
-                                            'Back',
+                                            "kBack".tr(),
                                             style: AppStyles.blackTextStyle()
                                                 .copyWith(
                                               fontSize: 12,
@@ -2070,7 +2075,7 @@ class SupportScreen extends GetView<SupportController> {
                                         CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Next',
+                                            "kNext".tr(),
                                             style: AppStyles.blackTextStyle()
                                                 .copyWith(
                                               fontSize: 12,

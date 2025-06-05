@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../../utils/app_colors.dart';
-import '../../../utils/app_images.dart';
 import '../../../utils/app_styles.dart';
 import '../../custom_widgets/auth_component.dart';
 import '../../custom_widgets/custom_button.dart';
@@ -36,25 +37,25 @@ class SendOtpScreen extends GetView<AuthController> {
             ),
             SizedBox(height: 28),
             Text(
-              "Forget Password?",
+              "kForgotPassword".tr(),
               style: AppStyles.blackTextStyle().copyWith(
-                fontSize: 40,
+                fontSize: 32.sp,
                 fontWeight: FontWeight.w700,
               ),
             ),
             SizedBox(height: 8),
             Text(
-              "Please enter your email to reset your password.",
+              "kResetPasswordInstruction".tr(),
               style: AppStyles.blackTextStyle().
               copyWith(fontSize: 16,fontWeight: FontWeight.w400,color: kGreyShade5Color),),
             SizedBox(height: 56),
-            Text("Email",style: AppStyles.blackTextStyle().copyWith(fontSize: 14,fontWeight: FontWeight.w500),),
+            Text("kEmail".tr(),style: AppStyles.blackTextStyle().copyWith(fontSize: 14.sp,fontWeight: FontWeight.w500),),
             SizedBox(height: 4),
             SizedBox(
-              height: 44,
+              height: 44.h,
               child: TextField(
                 style: AppStyles.blackTextStyle().copyWith(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w400
                 ),
                 decoration: InputDecoration(
@@ -93,7 +94,7 @@ class SendOtpScreen extends GetView<AuthController> {
             SizedBox(height: 40),
             CustomButton(
               width: MediaQuery.of(context).size.width,
-              title: "Submit",
+              title: "kSubmit".tr(),
               color: kPrimaryColor,
               borderColor: kPrimaryColor,
               onTap: () {
