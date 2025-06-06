@@ -16,6 +16,7 @@ class LanguageDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthController menuController = Get.put(AuthController());
     String currentLang = menuController.selectedLanguageCode.value;
+    Locale locale = Localizations.localeOf(context);
 
     return Dialog(
       backgroundColor: kPrimaryColor,
@@ -57,8 +58,8 @@ class LanguageDialog extends StatelessWidget {
                   menuController.changeLanguage('en');
                   Get.back();
                 },
-                color: currentLang == 'en' ? kWhiteColor : kPrimaryColor,
-                textColor: currentLang == 'en' ? kPrimaryColor : kWhiteColor,
+                color: locale.languageCode == 'en' ? kWhiteColor : kPrimaryColor,
+                textColor: locale.languageCode == 'en' ? kPrimaryColor : kWhiteColor,
                 borderColor: kWhiteColor,
               ),
               CustomButton(
@@ -68,8 +69,8 @@ class LanguageDialog extends StatelessWidget {
                   menuController.changeLanguage('ar');
                   Get.back();
                 },
-                color: currentLang == 'ar' ? kWhiteColor : kPrimaryColor,
-                textColor: currentLang == 'ar' ? kPrimaryColor : kWhiteColor,
+                color: locale.languageCode == 'ar' ? kWhiteColor : kPrimaryColor,
+                textColor: locale.languageCode == 'ar' ? kPrimaryColor : kWhiteColor,
                 borderColor: kWhiteColor,
               ),
             ],
