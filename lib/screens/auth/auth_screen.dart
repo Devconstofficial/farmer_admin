@@ -184,7 +184,7 @@ class AuthScreen extends GetView<AuthController> {
                 },
                 height: 44,
               ),
-              SizedBox(height: 220.h,),
+              SizedBox(height: 32,),
               Center(
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
